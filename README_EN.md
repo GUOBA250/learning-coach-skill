@@ -94,6 +94,100 @@ npx learning-coach-skill install --project --all
 
 Restart the target IDE or Agent after installation.
 
+## Usage Guide
+
+The full journey in five steps — no prior Agent Skill experience required.
+
+### Prerequisites
+
+- Node.js >= 16 (only needed to run the installer CLI; the Skill itself is plain Markdown)
+- An Agent or IDE that supports skills: Trae, Cursor, Claude Code, Codex, or any tool that loads skills from `~/.agents/skills/`
+
+### Step 1 — Preview & Install
+
+See exactly where files will land without writing anything:
+
+```bash
+npx learning-coach-skill doctor
+npx learning-coach-skill doctor --trae
+```
+
+Then install to your product (pick one):
+
+```bash
+# Generic Agents / Codex (default)
+npx learning-coach-skill install
+
+# or pick a specific product
+npx learning-coach-skill install --trae          # Trae
+npx learning-coach-skill install --cursor        # Cursor
+npx learning-coach-skill install --claude-code   # Claude Code
+npx learning-coach-skill install --codex         # Codex
+
+# one command for all global targets
+npx learning-coach-skill install --all
+```
+
+Running from a business project root with `--project` limits the install to that project only:
+
+```bash
+cd /path/to/your-project
+npx learning-coach-skill install --project --trae
+```
+
+### Step 2 — Verify the Install
+
+Confirm `SKILL.md` exists under the target directory, e.g.:
+
+```bash
+ls ~/.trae/skills/learning-coach-skill/SKILL.md
+```
+
+If the path does not exist, re-run `install` — the CLI does not auto-update existing copies.
+
+### Step 3 — Start a New Session
+
+Restart the target IDE / Agent so it picks up the new skill, then open a **new chat** in the project root. Skills are only loaded into conversations started after installation.
+
+### Step 4 — Invoke the Skill
+
+Use the slash command `/learning-coach` followed by your intent, or just describe what you want in natural language. The skill matches your request to one of four modes:
+
+| Mode | Trigger phrases | Loads | Example request |
+|------|-----------------|-------|-----------------|
+| 背八股 (Interview Q&A) | "背八股" / "复习八股" / "下一题" | `references/rules/八股规范.md` | `/learning-coach 背八股，下一题` |
+| 刷算法 (Algorithms) | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
+| 读项目 (Source reading) | "读项目" / "继续读" / "讲 XXX 文件" | `references/rules/项目规范.md` | `/learning-coach 继续读 MiniVue，讲 parse.ts` |
+| 启动学习 (Kickstart) | "启动不了" / "不想学" / "帮我开始" | `references/rules/状态教练.md` | `/learning-coach 我不想学，帮我开始` |
+
+### Input Parameters
+
+All parameters are optional — you can simply say what you want:
+
+| Parameter | Applies to | Effect |
+|-----------|------------|--------|
+| Topic / chapter | 背八股, 刷算法 | Narrows questions to one area, e.g. "背 Vue 双向绑定" |
+| Progress notes | All modes | Tell it where you stopped; it remembers and reminds you next session |
+| Question number | 刷算法 | Targets a specific problem, e.g. "讲 76. 最小覆盖子串" |
+| File path | 读项目 | Targets a file or function, e.g. "讲 src/core/parse.ts" |
+| Preferred language | 刷算法 | Request code in another language, e.g. "用 Go 写" |
+
+### Output Formats
+
+- **背八股** — four sections: plain-language explanation → text flowchart → a ~350-word core answer you can recite → expected follow-up questions with spoken answers. Afterwards, you restate it in your own words and the coach corrects you line by line.
+- **刷算法** — Code Caprice style: what the problem tests → core idea → standard template code → line-by-line breakdown → example walkthrough → pitfall table → complexity → one-sentence takeaway. You write your own code first; the coach reviews it instead of giving away the answer.
+- **读项目** — a function map table first, then a bottom-up line-by-line walkthrough. Each block ends with ~8 review questions (question + answer) and a self-check checklist.
+- **启动学习** — PlanCoach mode: one tiny action at a time, no lectures, until you are in study state.
+
+### Common Use Cases
+
+1. **Daily interview prep** — "背八股，从 Vue 章节开始" → recital → line-by-line correction → next question.
+2. **Algorithm practice** — "刷算法，今天 5 道新题" → you write code → review of bugs, logic, style → corrected version plus pitfalls and complexity.
+3. **Reading a real codebase** — "继续读 MiniVue，讲 reactivity.ts" → function map → line-by-line teaching → review questions → move on only after you confirm.
+4. **Beating procrastination** — "我不想学，帮我开始" → the coach hands you one tiny action at a time (put the phone away, sit up, open the notes…) until you are studying.
+
+See [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md) for full sample conversations covering all four modes.
+
 ## Repository Structure
 
 ```text
@@ -154,6 +248,47 @@ npx learning-coach-skill install --trae
 ### How do I limit the skill to one project?
 
 Run the command from that project root with `--project` plus a target flag, e.g. `npx learning-coach-skill install --project --trae`, and the skill lands in `./.trae/rules/learning-coach-skill/`.
+
+## Troubleshooting
+
+### `npx learning-coach-skill` says "command not found"
+
+The package isn't published yet, or npm cannot fetch it. Options:
+
+```bash
+# once it's published to npm, install it as a global package
+npm install -g learning-coach-skill
+
+# if you cloned the repo, run the CLI directly
+node bin/learning-coach-skill.js install --trae
+
+# during local development, link the repo
+cd learning-coach-skill && npm link && npx learning-coach-skill doctor
+```
+
+### EACCES permission errors when writing to the target directory
+
+The CLI writes into directories under your home folder (e.g. `~/.trae/skills/...`). Fix ownership, then re-run:
+
+```bash
+sudo chown -R "$(whoami)" ~/.trae ~/.agents ~/.cursor ~/.claude 2>/dev/null
+npx learning-coach-skill install --trae
+```
+
+### The skill does not respond after installation
+
+1. Restart the IDE / Agent — new skills are only picked up at startup.
+2. Start a **new** conversation; skills are not injected into chats that were already open.
+3. Run `npx learning-coach-skill doctor --trae` and confirm the printed path matches what your IDE expects.
+4. If you installed with `--project`, make sure you're chatting from that project root.
+
+### Installed files are stale after an update
+
+Installs are plain copies; nothing syncs automatically. Re-run the install command with the same flags to refresh.
+
+### The `scripts/` folder is empty
+
+`scripts/` is a reserved slot for future helper scripts. Nothing needs to be configured there; the CLI copies it as-is.
 
 ## License
 

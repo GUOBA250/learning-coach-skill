@@ -94,6 +94,100 @@ npx learning-coach-skill install --project --all
 
 安装完成后，重启对应 IDE / Agent，开启新对话。
 
+## 使用指南
+
+五步走完整个流程，零 skill 使用经验也能上手。
+
+### 前提条件
+
+- Node.js >= 16（仅安装 CLI 需要；Skill 本体是纯 Markdown）
+- 支持 skill 的 IDE / Agent：Trae、Cursor、Claude Code、Codex，或任何从 `~/.agents/skills/` 加载技能的工具
+
+### 第 1 步：预览并安装
+
+先用 doctor 看看文件会落到哪里（不写任何文件）：
+
+```bash
+npx learning-coach-skill doctor
+npx learning-coach-skill doctor --trae
+```
+
+再选择目标安装（任选其一）：
+
+```bash
+# 通用 Agent / Codex（默认）
+npx learning-coach-skill install
+
+# 或明确指定产品
+npx learning-coach-skill install --trae          # Trae
+npx learning-coach-skill install --cursor        # Cursor
+npx learning-coach-skill install --claude-code   # Claude Code
+npx learning-coach-skill install --codex         # Codex
+
+# 一条命令装到全部全局目标
+npx learning-coach-skill install --all
+```
+
+只想让某个业务项目使用，进入该项目根目录加 `--project`：
+
+```bash
+cd /path/to/your-project
+npx learning-coach-skill install --project --trae
+```
+
+### 第 2 步：验证安装
+
+确认目标目录下存在 `SKILL.md`，例如：
+
+```bash
+ls ~/.trae/skills/learning-coach-skill/SKILL.md
+```
+
+路径不存在就重新执行 `install`——CLI 不会自动刷新已有拷贝。
+
+### 第 3 步：开启新会话
+
+重启对应的 IDE / Agent 让它加载新 skill，然后在项目根目录开一个**新对话**。skill 只会注入到安装之后新建的对话里。
+
+### 第 4 步：调用 skill
+
+用斜杠命令 `/learning-coach` 加意图，或者直接用自然语言描述需求。skill 会把请求匹配到四种模式之一：
+
+| 模式 | 触发词 | 加载文件 | 示例请求 |
+|------|--------|----------|----------|
+| 背八股 | "背八股" / "复习八股" / "下一题" | `references/rules/八股规范.md` | `/learning-coach 背八股，下一题` |
+| 刷算法 | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
+| 读项目 | "读项目" / "继续读" / "讲 XXX 文件" | `references/rules/项目规范.md` | `/learning-coach 继续读 MiniVue，讲 parse.ts` |
+| 启动学习 | "启动不了" / "不想学" / "帮我开始" | `references/rules/状态教练.md` | `/learning-coach 我不想学，帮我开始` |
+
+### 可选输入参数
+
+所有参数都可选，直接说需求就行：
+
+| 参数 | 适用模式 | 作用 |
+|------|----------|------|
+| 主题 / 章节 | 背八股、刷算法 | 缩小范围，如"背 Vue 双向绑定" |
+| 进度信息 | 全部模式 | 告诉它上次学到哪，下次对话会提醒 |
+| 题号 | 刷算法 | 指定题目，如"讲 76. 最小覆盖子串" |
+| 文件路径 | 读项目 | 指定文件或函数，如"讲 src/core/parse.ts" |
+| 语言偏好 | 刷算法 | 指定代码语言，如"用 Go 写" |
+
+### 输出格式
+
+- **背八股** — 四段式：通俗讲解 → 文字流程图 → 约 350 字可直接背诵的核心答案 → 面试官追问及口播回答。之后你用自己的话复述，教练逐条校正。
+- **刷算法** — 卡哥风格：考什么 → 核心思路 → 标准模板代码 → 逐行拆解 → 例子跑一遍 → 易错点表 → 复杂度 → 一句话总结。你先自己写代码，教练只批改不直接给答案。
+- **读项目** — 先出「函数地图」表格，再从底往上逐行讲解；每块结尾给约 8 道复习题（题号+问题+答案）和自查清单。
+- **启动学习** — PlanCoach 模式：一次只给一个极小动作，不讲大道理，直到你进入学习状态。
+
+### 常见用例
+
+1. **每日背八股** — "背八股，从 Vue 章节开始" → 复述 → 逐条校正 → 下一题。
+2. **算法日常刷题** — "刷算法，今天 5 道新题" → 你先写代码 → 批改 bug、逻辑、风格 → 修正版 + 易错点 + 复杂度。
+3. **读真实项目源码** — "继续读 MiniVue，讲 reactivity.ts" → 函数地图 → 逐行讲解 → 复习题 → 你确认后才进下一块。
+4. **拖延启动** — "我不想学，帮我开始" → 一次一个极小动作（放下手机、坐起来、打开笔记……），直到进入学习状态。
+
+四种模式的完整示例对话见 [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
+
 ## 目录结构
 
 ```text
@@ -154,6 +248,47 @@ npx learning-coach-skill install --trae
 ### 只想装到某个业务项目怎么办？
 
 进入该业务项目根目录，执行 `--project` 加目标参数即可，例如 `npx learning-coach-skill install --project --trae`，Skill 会被安装到 `./.trae/rules/learning-coach-skill/`。
+
+## 故障排查
+
+### `npx learning-coach-skill` 提示 command not found
+
+包还没发布，或 npm 拉取不到。可选方案：
+
+```bash
+# 包发布到 npm 后，可全局安装
+npm install -g learning-coach-skill
+
+# clone 了仓库的话，直接跑 CLI
+node bin/learning-coach-skill.js install --trae
+
+# 本地开发时，用 npm link 调试
+cd learning-coach-skill && npm link && npx learning-coach-skill doctor
+```
+
+### 写入目标目录时报 EACCES 权限错误
+
+CLI 会写入用户主目录下的路径（如 `~/.trae/skills/...`）。先修正属主再重跑：
+
+```bash
+sudo chown -R "$(whoami)" ~/.trae ~/.agents ~/.cursor ~/.claude 2>/dev/null
+npx learning-coach-skill install --trae
+```
+
+### 安装后 skill 没反应
+
+1. 重启 IDE / Agent——新的 skill 只在启动时加载。
+2. 开一个**新**对话：已经开着的对话不会注入新 skill。
+3. 跑 `npx learning-coach-skill doctor --trae`，确认打印的路径与你的 IDE 期望一致。
+4. 用了 `--project` 安装的话，确认你在该项目根目录下的对话里使用。
+
+### 更新后已安装的文件还是旧的
+
+安装产物是纯拷贝，不会自动同步。用相同的参数重新执行 install 即可刷新。
+
+### `scripts/` 目录是空的
+
+`scripts/` 是留给未来辅助脚本的位置，目前无需任何配置，CLI 会原样复制。
 
 ## License
 
