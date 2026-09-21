@@ -1,7 +1,7 @@
 <div align="center">
   <h1>learning-coach-skill</h1>
   <p><a href="https://github.com/GUOBA250/learning-coach-skill/blob/main/README_EN.md">English</a></p>
-  <p><em>你的私人学习教练：定计划、背八股、刷算法、读项目源码、启动学习，一条龙陪练。</em></p>
+  <p><em>你的私人学习教练：定计划、背八股、刷算法、读项目源码、模拟面试、启动学习，一条龙陪练。</em></p>
   <p>
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
     <img alt="Type: Agent Skill" src="https://img.shields.io/badge/Type-Agent%20Skill-7c3aed">
@@ -21,6 +21,7 @@
 - 刷算法：卡哥风格讲解，先讲"为什么用这个方法"再讲"怎么做"，强调框架、易错点和复杂度
 - 读项目源码：先列带级别的「函数地图」，再从底往上逐行讲解，每块给 🔴 L1 必背清单和复习题
 - 分级记忆：按 🔴 L1 背（脱稿说）/ 🟡 L2 懂（看代码讲思路）/ ⚪ L3 认（眼熟即可）给知识分级——代码不用背、机制要背；文件路径、错误码数字、API 拼写不要求记，有条理地背而不是全背
+- 模拟面试：15 分钟单科加练或 50 分钟全流程彩排（自我介绍→八股→算法→项目深挖→反问），面试中按真实节奏一次一题、不提示不讲课，结束后按环节 0-2 分评分、给 3 个核心问题和补丁清单，丢分题进待复测清单下次先抽
 - 启动学习：PlanCoach 模式，不讲大道理，给极小动作，完成一步再给下一步
 - 进度连贯：记住你的学习进度，下次对话接着提醒
 - 全平台安装：一条 CLI 支持通用 Agent、Trae、Cursor、Claude Code、Codex 的全局与项目级安装
@@ -154,7 +155,7 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 
 ### 第 4 步：调用 skill
 
-用斜杠命令 `/learning-coach` 加意图，或者直接用自然语言描述需求。skill 会把请求匹配到五种模式之一：
+用斜杠命令 `/learning-coach` 加意图，或者直接用自然语言描述需求。skill 会把请求匹配到六种模式之一：
 
 | 模式 | 触发词 | 加载文件 | 示例请求 |
 |------|--------|----------|----------|
@@ -162,6 +163,7 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 | 背八股 | "背八股" / "复习八股" / "下一题" / "哪些要背" | `references/rules/八股规范.md` ＋ `记忆优先级.md` | `/learning-coach 背八股，下一题` |
 | 刷算法 | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
 | 读项目 | "读项目" / "继续读" / "讲 XXX 文件" / "代码要不要背" | `references/rules/项目规范.md` ＋ `记忆优先级.md` | `/learning-coach 继续读 MiniVue，讲 parse.ts` |
+| 模拟面试 | "模拟面试" / "模拟一下" / "面我一轮" / "考前模拟" | `references/rules/模拟面试规范.md` ＋ `记忆优先级.md` | `/learning-coach 模拟面试，前端岗，用 MiniVue 全流程` |
 | 启动学习 | "启动不了" / "不想学" / "帮我开始" | `references/rules/状态教练.md` | `/learning-coach 我不想学，帮我开始` |
 
 ### 可选输入参数
@@ -186,6 +188,7 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 - **刷算法** — 卡哥风格：考什么 → 核心思路 → 标准模板代码 → 逐行拆解 → 例子跑一遍 → 易错点表 → 复杂度 → 一句话总结。你先自己写代码，教练只批改不直接给答案。
 - **读项目** — 先出带 🔴/🟡/⚪ 级别的「函数地图」，再从底往上逐行讲解；每块给「本节 🔴 L1 清单」和复习题（只考 L1/L2），代码看懂即可、机制要求脱稿讲。
 - **启动学习** — PlanCoach 模式：一次只给一个极小动作，不讲大道理，直到你进入学习状态。
+- **模拟面试** — 开面三句话确认岗位/项目/全流程还是单科；面试中一次一题、卡住 10 秒才给一次最小提示（记"经提示"）、每题追问 1-2 轮只追漏的 🔴 L1 和"为什么"；结束后给评分表（每题 0/1/2 分）、最大的 3 个问题、补丁清单（复用八股补丁协议）、待复测清单和下一步动作。冲刺期安排 2 次：摸底 + 考前复测。
 
 ### 背八股怎么校正：打补丁，不重背
 
@@ -204,8 +207,9 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 3. **算法日常刷题** — "刷算法，今天 5 道新题" → 你先写代码 → 批改 bug、逻辑、风格 → 修正版 + 易错点 + 复杂度。
 4. **读真实项目源码** — "继续读 MiniVue，讲 reactivity.ts" → 带级别的函数地图 → 逐行讲解（代码 L2 看懂、机制 L1 脱稿）→ L1 清单 + 复习题 → 你确认后才进下一块。
 5. **拖延启动** — "我不想学，帮我开始" → 一次一个极小动作（放下手机、坐起来、打开笔记……），直到进入学习状态。
+6. **考前模拟** — "模拟面试，前端岗，用 MiniVue 全流程" → 自我介绍+八股+算法+项目+反问走 50 分钟 → 评分表和 3 个核心问题 → 收补丁、丢分题进待复测清单，下次模拟开头先抽。
 
-五种模式的完整示例对话见 [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
+六种模式的完整示例对话见 [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
 
 ## 目录结构
 
@@ -220,13 +224,15 @@ learning-coach-skill/
 │       │   │   ├── 算法规范.md
 │       │   │   ├── 项目规范.md
 │       │   │   ├── 计划规范.md
+│       │   │   ├── 模拟面试规范.md
 │       │   │   ├── 记忆优先级.md
 │       │   │   └── 状态教练.md
 │       │   ├── templates/
 │       │   │   ├── 八股模板.md
 │       │   │   ├── 算法模板.md
 │       │   │   ├── 项目模板.md
-│       │   │   └── 计划模板.md
+│       │   │   ├── 计划模板.md
+│       │   │   └── 模拟面试模板.md
 │       │   └── examples/
 │       │       └── 示例对话.md
 │       └── scripts/
@@ -244,8 +250,8 @@ learning-coach-skill/
 | 文件 / 目录 | 作用 |
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill 入口：声明何时使用、按用户请求加载对应 reference、所有场景通用的输出约定、进度记录与复习建议 |
-| `skill/learning-coach/references/rules/` | 六份规范：八股四段式与补丁式口述校正、算法卡哥风格、项目逐行讲解、面试倒计时定计划、L1/L2/L3 记忆优先级（八股和项目共用）、PlanCoach 启动学习，决定"怎么讲/怎么排/背什么" |
-| `skill/learning-coach/references/templates/` | 四类输出模板：八股（含 🔴 必背清单与补丁式校正表）、算法、项目（含级别函数地图和 L1 清单）、学习计划的完整输出格式，决定"长什么样" |
+| `skill/learning-coach/references/rules/` | 七份规范：八股四段式与补丁式口述校正、算法卡哥风格、项目逐行讲解、面试倒计时定计划、模拟面试流程与评分复盘、L1/L2/L3 记忆优先级（八股、项目、模拟面试共用）、PlanCoach 启动学习，决定"怎么讲/怎么排/怎么考/背什么" |
+| `skill/learning-coach/references/templates/` | 五类输出模板：八股（含 🔴 必背清单与补丁式校正表）、算法、项目（含级别函数地图和 L1 清单）、学习计划、模拟面试（开场/评分表/复盘）的完整输出格式，决定"长什么样" |
 
 Skill 可独立迁移：复制 `skill/learning-coach/` 目录即可，不需要 `bin/`、`package.json`。CLI 安装时也只从这个目录生成目标 Skill。
 

@@ -12,7 +12,7 @@
   </p>
 </div>
 
-An AI study coach that helps you memorize interview questions, grind algorithms, and read project source code. Works for frontend, backend, and full-stack learning alike. Before an interview it builds a personalized daily study plan from your countdown, available daily hours, and self-rated level across the three areas; and when you procrastinate, it switches to PlanCoach mode and pulls you into study state step by step.
+An AI study coach that helps you memorize interview questions, grind algorithms, and read project source code. Works for frontend, backend, and full-stack learning alike. Before an interview it builds a personalized daily study plan from your countdown, available daily hours, and self-rated level across the three areas; in the final stretch it runs realistic mock technical interviews with scoring and debrief; and when you procrastinate, it switches to PlanCoach mode and pulls you into study state step by step.
 
 ## Core Capabilities
 
@@ -21,6 +21,7 @@ An AI study coach that helps you memorize interview questions, grind algorithms,
 - Algorithms: Code Caprice style — "why this method" first, then "how", emphasizing frameworks, common pitfalls, and complexity
 - Source reading: a level-tagged function map up front, bottom-up line-by-line walkthrough, and an 🔴 L1 list plus review questions per block
 - Priority-tagged memory: every piece of knowledge is tagged 🔴 L1 recite (speak without notes) / 🟡 L2 understand (explain with code visible) / ⚪ L3 recognize (just look familiar) — code itself is never memorized, mechanisms are; file paths, error-code numbers, and API spelling are not memorized
+- Mock interview: a 15-minute single-area drill or a 50-minute full run (self-intro → Q&A → coding → project deep-dive → reverse questions); during the session it asks one question at a time like a real interviewer with no hints or lectures, then scores every item 0-2 and delivers the top 3 issues, a patch list, and a retest queue for the next mock
 - Get started: PlanCoach mode — no lectures, just tiny actions, one at a time
 - Progress continuity: remembers where you left off and picks up next session
 - One CLI, many targets: global and project-level installs for generic Agents, Trae, Cursor, Claude Code, and Codex
@@ -154,7 +155,7 @@ Restart the target IDE / Agent so it picks up the new skill, then open a **new c
 
 ### Step 4 — Invoke the Skill
 
-Use the slash command `/learning-coach` followed by your intent, or just describe what you want in natural language. The skill matches your request to one of five modes:
+Use the slash command `/learning-coach` followed by your intent, or just describe what you want in natural language. The skill matches your request to one of six modes:
 
 | Mode | Trigger phrases | Loads | Example request |
 |------|-----------------|-------|-----------------|
@@ -162,6 +163,7 @@ Use the slash command `/learning-coach` followed by your intent, or just describ
 | 背八股 (Interview Q&A) | "背八股" / "复习八股" / "下一题" / "哪些要背" | `references/rules/八股规范.md` ＋ `记忆优先级.md` | `/learning-coach 背八股，下一题` |
 | 刷算法 (Algorithms) | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
 | 读项目 (Source reading) | "读项目" / "继续读" / "讲 XXX 文件" / "要不要背代码" | `references/rules/项目规范.md` ＋ `记忆优先级.md` | `/learning-coach 继续读 MiniVue，讲 parse.ts` |
+| 模拟面试 (Mock interview) | "模拟面试" / "模拟一下" / "面我一轮" / "考前模拟" | `references/rules/模拟面试规范.md` ＋ `记忆优先级.md` | `/learning-coach 模拟面试，前端岗，用 MiniVue 全流程` |
 | 启动学习 (Kickstart) | "启动不了" / "不想学" / "帮我开始" | `references/rules/状态教练.md` | `/learning-coach 我不想学，帮我开始` |
 
 ### Input Parameters
@@ -186,6 +188,7 @@ All parameters are optional — you can simply say what you want:
 - **刷算法** — Code Caprice style: what the problem tests → core idea → standard template code → line-by-line breakdown → example walkthrough → pitfall table → complexity → one-sentence takeaway. You write your own code first; the coach reviews it instead of giving away the answer.
 - **读项目** — a function map tagged 🔴/🟡/⚪ first, then a bottom-up line-by-line walkthrough. Each block ends with an "L1 list" and review questions covering L1/L2 only: code just needs to be understood, mechanisms must be spoken without notes.
 - **启动学习** — PlanCoach mode: one tiny action at a time, no lectures, until you are in study state.
+- **模拟面试** — three quick confirmations up front (role / project / full-run or single-area); one question at a time, a minimal hint only after ~10s of silence (logged as "with hint"), 1-2 follow-ups per question aimed only at missed 🔴 L1 points and "why". After the session: a score table (0/1/2 per item), the top 3 issues, a patch list (same patch protocol as Q&A mode), a retest queue, and next actions. Two mocks in the sprint phase: baseline + pre-interview retest.
 
 ### How correction works for interview Q&A: patches, not re-memorization
 
@@ -204,8 +207,9 @@ All later reviews are oral recall with materials closed — never read-along ses
 3. **Algorithm practice** — "刷算法，今天 5 道新题" → you write code → review of bugs, logic, style → corrected version plus pitfalls and complexity.
 4. **Reading a real codebase** — "继续读 MiniVue，讲 reactivity.ts" → level-tagged function map → line-by-line teaching (code is L2, mechanisms are L1) → L1 list and review questions → move on only after you confirm.
 5. **Beating procrastination** — "我不想学，帮我开始" → the coach hands you one tiny action at a time (put the phone away, sit up, open the notes…) until you are studying.
+6. **Pre-interview mock** — "模拟面试，前端岗，用 MiniVue 全流程" → 50 minutes of self-intro + Q&A + coding + project deep-dive + reverse questions → score table and top 3 issues → patches received, missed questions enter the retest queue and open the next mock.
 
-See [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md) for full sample conversations covering all five modes.
+See [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md) for full sample conversations covering all six modes.
 
 ## Repository Structure
 
@@ -220,13 +224,15 @@ learning-coach-skill/
 │       │   │   ├── 算法规范.md
 │       │   │   ├── 项目规范.md
 │       │   │   ├── 计划规范.md
+│       │   │   ├── 模拟面试规范.md
 │       │   │   ├── 记忆优先级.md
 │       │   │   └── 状态教练.md
 │       │   ├── templates/
 │       │   │   ├── 八股模板.md
 │       │   │   ├── 算法模板.md
 │       │   │   ├── 项目模板.md
-│       │   │   └── 计划模板.md
+│       │   │   ├── 计划模板.md
+│       │   │   └── 模拟面试模板.md
 │       │   └── examples/
 │       │       └── 示例对话.md
 │       └── scripts/
@@ -244,8 +250,8 @@ learning-coach-skill/
 | File / Directory | Purpose |
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill entry: declares when to activate, which reference to load per request, output conventions across all scenarios, progress tracking and review advice |
-| `skill/learning-coach/references/rules/` | Six rule sets: interview-question four-part structure with patch-based oral correction, Code Caprice algorithm style, line-by-line source reading, interview-countdown study planning, L1/L2/L3 memory priority (shared by Q&A and source reading), and PlanCoach kickstart — decide "how to teach / plan / what to memorize" |
-| `skill/learning-coach/references/templates/` | Four output templates for interview questions (with 🔴 must-recite list and patch table), algorithms, source files (with level-tagged map and L1 list), and study plans — decide "what it looks like" |
+| `skill/learning-coach/references/rules/` | Seven rule sets: interview-question four-part structure with patch-based oral correction, Code Caprice algorithm style, line-by-line source reading, interview-countdown study planning, mock-interview flow with scoring and debrief, L1/L2/L3 memory priority (shared by Q&A, source reading, and mocks), and PlanCoach kickstart — decide "how to teach / plan / examine / what to memorize" |
+| `skill/learning-coach/references/templates/` | Five output templates for interview questions (with 🔴 must-recite list and patch table), algorithms, source files (with level-tagged map and L1 list), study plans, and mock interviews (opening / score table / debrief) — decide "what it looks like" |
 
 The Skill is portable on its own: copy `skill/learning-coach/` — `bin/` and `package.json` are not required. The CLI also builds installed targets from this directory only.
 
