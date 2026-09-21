@@ -8,8 +8,17 @@
   },
   "files": [
     "bin/",
-    "skill/"
+    "skill/",
+    "README_EN.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GUOBA250/learning-coach-skill.git"
+  },
+  "homepage": "https://github.com/GUOBA250/learning-coach-skill#readme",
+  "bugs": {
+    "url": "https://github.com/GUOBA250/learning-coach-skill/issues"
+  },
   "keywords": [
     "agent",
     "skill",
