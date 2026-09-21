@@ -16,9 +16,9 @@ An AI study coach that helps you memorize interview questions, grind algorithms,
 
 ## Core Capabilities
 
-- Study plan: given the interview countdown, daily available hours, and your level in interview Q&A / algorithms / projects, it produces a three-phase overview, a today-task table sliced into time blocks, and milestones — then adjusts daily based on your check-ins
+- Study plan: given the interview countdown, daily available hours, and your level in interview Q&A / algorithms / projects, it produces a three-phase overview, a today-task table sliced into time blocks, and milestones — then adjusts daily from your check-in completion rate (sub-50% days auto-halve, debt never rolls over, a cross-day status block is maintained); written-test and no-project/weak-project edge cases each have dedicated scheduling rules
 - Interview questions: four-part explanations (plain-language walkthrough + text flowchart + 75-80 point core answer + follow-ups); each question opens with a 🔴 must-recite list, and after you recite it the coach only hands you a short patch list — your own version stays canonical, no full rewrite
-- Algorithms: Code Caprice style — "why this method" first, then "how", emphasizing frameworks, common pitfalls, and complexity
+- Algorithms: Code Caprice style — "why this method" first, then "how", emphasizing frameworks, common pitfalls, and complexity; problem signals / approach framework / template skeleton / complexity are 🔴 must-recite (closed-book writing), while boundary details and variants are 🟡 — just understand and adapt
 - Source reading: a level-tagged function map up front, bottom-up line-by-line walkthrough, and an 🔴 L1 list plus review questions per block
 - Priority-tagged memory: every piece of knowledge is tagged 🔴 L1 recite (speak without notes) / 🟡 L2 understand (explain with code visible) / ⚪ L3 recognize (just look familiar) — code itself is never memorized, mechanisms are; file paths, error-code numbers, and API spelling are not memorized
 - Mock interview: a 15-minute single-area drill or a 50-minute full run (self-intro → Q&A → coding → project deep-dive → reverse questions); during the session it asks one question at a time like a real interviewer with no hints or lectures, then scores every item 0-2 and delivers the top 3 issues and a patch list; missed points enter the error book and get retested first next time
@@ -185,9 +185,9 @@ All parameters are optional — you can simply say what you want:
 
 ### Output Formats
 
-- **定计划** — countdown dashboard → level diagnosis and time allocation (weak 3 / mid 2 / strong 1 shares) → three-phase overview (foundation/intensive/sprint at 5:3:2) → today's task table sliced into 30-45 minute blocks (each with a verifiable output standard) → rest-of-week themes → milestones → adjustment rules. Check in daily and the plan adapts to what you actually completed.
+- **定计划** — countdown dashboard → level diagnosis and time allocation (weak 3 / mid 2 / strong 1 shares) → three-phase overview (foundation/intensive/sprint at 5:3:2) → today's task table sliced into 30-45 minute blocks (each with a verifiable output standard) → rest-of-week themes → milestones → adjustment rules. Daily you report "blocks done / where stuck": ≥90% keeps the schedule, 50-90% skips debt collection, <50% halves tomorrow (review block + one 🔴 block only); right after check-in you get tomorrow's table and an updated status block. Written test ahead: timed handwritten algorithms + a daily MCQ block + one full timed mock; no/weak project: first repackage and actually read an existing one, or grind one small project you can explain deeply in 2-5 days — never fabricate experience.
 - **背八股** — opens with a 🔴 must-recite list (2-4 L1 items), then the four sections: plain-language explanation → text flowchart → a ~350-word core answer you can recite → expected follow-ups. After you recite, your version is treated as canonical: the coach gives at most 5 patches (📌 insertion / 🔁 replacement, with location and reason) and never a full rewrite; you read the patches once and immediately re-tell it with materials closed.
-- **刷算法** — Code Caprice style: what the problem tests → core idea → standard template code → line-by-line breakdown → example walkthrough → pitfall table → complexity → one-sentence takeaway. You write your own code first; the coach reviews it instead of giving away the answer.
+- **刷算法** — opens with a 🔴 must-recite list (problem signals / framework / template skeleton / complexity), then Code Caprice style: what the problem tests → core idea → standard template code → line-by-line breakdown → example walkthrough → pitfall table (🟡 boundary details — understand, don't memorize) → complexity → one-sentence takeaway. You write your own code first; the coach reviews it instead of giving away the answer.
 - **读项目** — a function map tagged 🔴/🟡/⚪ first, then a bottom-up line-by-line walkthrough. Each block ends with an "L1 list" and review questions covering L1/L2 only: code just needs to be understood, mechanisms must be spoken without notes.
 - **启动学习** — PlanCoach mode: one tiny action at a time, no lectures, until you are in study state.
 - **模拟面试** — three quick confirmations up front (role / project / full-run or single-area); one question at a time, a minimal hint only after ~10s of silence (logged as "with hint"), 1-2 follow-ups per question aimed only at missed 🔴 L1 points and "why". After the session: a score table (0/1/2 per item), the top 3 issues, a patch list (same patch protocol as Q&A mode), newly added error-book points, and next actions. Two mocks in the sprint phase: baseline + pre-interview retest.
@@ -244,6 +244,8 @@ learning-coach-skill/
 │       └── scripts/
 ├── bin/
 │   └── learning-coach-skill.js
+├── scripts/
+│   └── check-refs.js        # npm test: validates Markdown cross-references (pure Node, not published)
 ├── package.json
 ├── README.md
 ├── README_EN.md
@@ -256,8 +258,8 @@ learning-coach-skill/
 | File / Directory | Purpose |
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill entry: declares when to activate, which reference to load per request, output conventions across all scenarios, progress tracking and error-book review cadence |
-| `skill/learning-coach/references/rules/` | Eight rule sets: interview-question four-part structure with patch-based oral correction, Code Caprice algorithm style, line-by-line source reading, interview-countdown study planning, mock-interview flow with scoring and debrief, spaced-repetition error book (1/3/7/15-day), L1/L2/L3 memory priority (shared by Q&A, source reading, and mocks), and PlanCoach kickstart — decide "how to teach / plan / examine / retain / what to memorize" |
-| `skill/learning-coach/references/templates/` | Six output templates for interview questions (with 🔴 must-recite list and patch table), algorithms, source files (with level-tagged map and L1 list), study plans, mock interviews (opening / score table / debrief), and error-book review (intake / daily drill / report table) — decide "what it looks like" |
+| `skill/learning-coach/references/rules/` | Eight rule sets: interview-question four-part structure with patch-based oral correction, Code Caprice algorithm style (with L1/L2/L3 levels), line-by-line source reading, interview-countdown study planning (incl. written-test and no-project edge cases), mock-interview flow with scoring and debrief, spaced-repetition error book (1/3/7/15-day), L1/L2/L3 memory priority (shared by Q&A, algorithms, source reading, and mocks), and PlanCoach kickstart — decide "how to teach / plan / examine / retain / what to memorize" |
+| `skill/learning-coach/references/templates/` | Six output templates for interview questions (with 🔴 must-recite list and patch table), algorithms (with must-recite list), source files (with level-tagged map and L1 list), study plans (with cross-day status block and half-load day table), mock interviews (opening / score table / debrief), and error-book review (intake / daily drill / report table) — decide "what it looks like" |
 
 The Skill is portable on its own: copy `skill/learning-coach/` — `bin/` and `package.json` are not required. The CLI also builds installed targets from this directory only.
 
@@ -320,9 +322,16 @@ npx learning-coach-skill install --trae
 
 Installs are plain copies; nothing syncs automatically. Re-run the install command with the same flags to refresh.
 
-### The `scripts/` folder is empty
+### What is the `scripts/` folder for
 
-`scripts/` is a reserved slot for future helper scripts. Nothing needs to be configured there; the CLI copies it as-is.
+- `skill/learning-coach/scripts/` is a reserved slot shipped with the skill (currently empty); the CLI copies it as-is.
+- The repo-root `scripts/check-refs.js` is a development self-check (not published): it verifies that every Markdown reference in SKILL.md, the rule files, and the READMEs points to a real file. After editing skill content, run:
+
+```bash
+npm test
+```
+
+Zero dependencies, pure Node, runs on Windows / macOS / Linux. A broken link fails with a non-zero exit code; rule/template files never referenced only produce a warning.
 
 ## License
 

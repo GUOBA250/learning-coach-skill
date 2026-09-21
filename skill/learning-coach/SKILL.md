@@ -24,7 +24,7 @@ description: 当用户表达学习需求时使用此技能——背八股/复习
 | 用户请求 | 加载文件 |
 |---|---|
 | 背八股 | `references/rules/八股规范.md` ＋ `references/rules/记忆优先级.md` |
-| 刷算法 | `references/rules/算法规范.md` |
+| 刷算法 | `references/rules/算法规范.md` ＋ `references/rules/记忆优先级.md` |
 | 读项目 | `references/rules/项目规范.md` ＋ `references/rules/记忆优先级.md` |
 | 定计划 | `references/rules/计划规范.md` |
 | 模拟面试 | `references/rules/模拟面试规范.md` ＋ `references/rules/记忆优先级.md` |

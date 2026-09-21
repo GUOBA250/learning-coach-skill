@@ -1,10 +1,13 @@
 {
   "name": "learning-coach-skill",
-  "version": "0.1.0",
-  "description": "学习教练 Agent Skill：背八股、刷算法、读项目源码、启动学习",
+  "version": "0.2.0",
+  "description": "学习教练 Agent Skill：面试倒计时定计划、背八股、刷算法、读项目源码、模拟面试、错题本滚动复习、启动学习",
   "license": "MIT",
   "bin": {
     "learning-coach-skill": "bin/learning-coach-skill.js"
+  },
+  "scripts": {
+    "test": "node scripts/check-refs.js"
   },
   "files": [
     "bin/",
@@ -23,8 +26,14 @@
     "agent",
     "skill",
     "learning-coach",
+    "interview",
+    "面试",
+    "学习计划",
     "八股",
-    "算法"
+    "算法",
+    "模拟面试",
+    "错题本",
+    "间隔重复"
   ],
   "engines": {
     "node": ">=16"
