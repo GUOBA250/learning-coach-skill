@@ -1,7 +1,7 @@
 <div align="center">
   <h1>learning-coach-skill</h1>
   <p><a href="https://github.com/GUOBA250/learning-coach-skill/blob/main/README_EN.md">English</a></p>
-  <p><em>你的私人学习教练：背八股、刷算法、读项目源码、启动学习，一条龙陪练。</em></p>
+  <p><em>你的私人学习教练：定计划、背八股、刷算法、读项目源码、启动学习，一条龙陪练。</em></p>
   <p>
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
     <img alt="Type: Agent Skill" src="https://img.shields.io/badge/Type-Agent%20Skill-7c3aed">
@@ -12,10 +12,11 @@
   </p>
 </div>
 
-一个专门用来学八股、刷算法、读项目的 AI 助教 Skill。不限定方向，前端、后端、全栈都适用；也不只是"讲题"，还会在你拖延的时候用 PlanCoach 模式把你一步步拉进学习状态。
+一个专门用来学八股、刷算法、读项目的 AI 助教 Skill。不限定方向，前端、后端、全栈都适用；也不只是"讲题"——面试前还能根据倒计时、每日可学时长和三围基础给你定制每日学习计划，在你拖延的时候用 PlanCoach 模式把你一步步拉进学习状态。
 
 ## 核心能力
 
+- 定计划：输入面试倒计时、每日可学时长、八股/算法/项目三围基础，输出三阶段总览 + 精确到块的今日任务表 + 里程碑，每天打卡动态调整
 - 背八股：四段式讲解（通俗讲解 + 文字流程图 + 75-80 分核心答案 + 追问），口述之后逐条校正
 - 刷算法：卡哥风格讲解，先讲"为什么用这个方法"再讲"怎么做"，强调框架、易错点和复杂度
 - 读项目源码：先列「函数地图」，再从底往上逐行讲解，每块结尾配复习题和自查清单
@@ -32,6 +33,7 @@ npx learning-coach-skill install
 安装完成后，在项目根目录开启新对话，输入：
 
 ```text
+/learning-coach 帮我定计划，14 天后面试，每天能学 2 小时
 /learning-coach 背八股，下一题
 /learning-coach 刷算法，下一题
 /learning-coach 继续读 MiniVue，讲 parse.ts
@@ -151,10 +153,11 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 
 ### 第 4 步：调用 skill
 
-用斜杠命令 `/learning-coach` 加意图，或者直接用自然语言描述需求。skill 会把请求匹配到四种模式之一：
+用斜杠命令 `/learning-coach` 加意图，或者直接用自然语言描述需求。skill 会把请求匹配到五种模式之一：
 
 | 模式 | 触发词 | 加载文件 | 示例请求 |
 |------|--------|----------|----------|
+| 定计划 | "定计划" / "学习计划" / "面试倒计时" / "每天学什么" | `references/rules/计划规范.md` | `/learning-coach 帮我定计划，14 天后面试，每天能学 2 小时` |
 | 背八股 | "背八股" / "复习八股" / "下一题" | `references/rules/八股规范.md` | `/learning-coach 背八股，下一题` |
 | 刷算法 | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
 | 读项目 | "读项目" / "继续读" / "讲 XXX 文件" | `references/rules/项目规范.md` | `/learning-coach 继续读 MiniVue，讲 parse.ts` |
@@ -166,6 +169,9 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 
 | 参数 | 适用模式 | 作用 |
 |------|----------|------|
+| 面试日期 / 倒计时 | 定计划 | 距面试还有几天，或具体日期，用于切阶段、算总账 |
+| 每日可学时长 | 定计划 | 工作日/周末可分开给，决定每天排几个学习块 |
+| 三围基础 | 定计划 | 八股、算法、项目各自评弱/中/强，决定时间配比 |
 | 主题 / 章节 | 背八股、刷算法 | 缩小范围，如"背 Vue 双向绑定" |
 | 进度信息 | 全部模式 | 告诉它上次学到哪，下次对话会提醒 |
 | 题号 | 刷算法 | 指定题目，如"讲 76. 最小覆盖子串" |
@@ -174,6 +180,7 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 
 ### 输出格式
 
+- **定计划** — 倒计时看板 → 三围诊断与时间配比（弱 3 份/中 2 份/强 1 份）→ 三阶段总览（打底/强化/冲刺 5:3:2）→ 精确到 30-45 分钟块的今日任务表（每块带可验收的产出标准）→ 本周安排 → 里程碑 → 调整规则。每天回来打卡，计划按完成情况动态调整。
 - **背八股** — 四段式：通俗讲解 → 文字流程图 → 约 350 字可直接背诵的核心答案 → 面试官追问及口播回答。之后你用自己的话复述，教练逐条校正。
 - **刷算法** — 卡哥风格：考什么 → 核心思路 → 标准模板代码 → 逐行拆解 → 例子跑一遍 → 易错点表 → 复杂度 → 一句话总结。你先自己写代码，教练只批改不直接给答案。
 - **读项目** — 先出「函数地图」表格，再从底往上逐行讲解；每块结尾给约 8 道复习题（题号+问题+答案）和自查清单。
@@ -181,12 +188,13 @@ ls ~/.trae/skills/learning-coach-skill/SKILL.md
 
 ### 常见用例
 
-1. **每日背八股** — "背八股，从 Vue 章节开始" → 复述 → 逐条校正 → 下一题。
-2. **算法日常刷题** — "刷算法，今天 5 道新题" → 你先写代码 → 批改 bug、逻辑、风格 → 修正版 + 易错点 + 复杂度。
-3. **读真实项目源码** — "继续读 MiniVue，讲 reactivity.ts" → 函数地图 → 逐行讲解 → 复习题 → 你确认后才进下一块。
-4. **拖延启动** — "我不想学，帮我开始" → 一次一个极小动作（放下手机、坐起来、打开笔记……），直到进入学习状态。
+1. **面试前定计划** — "14 天后面试，工作日每天 2 小时，八股弱算法弱项目中" → 倒计时看板 + 三阶段总览 + 今天的任务表，照着一块块做，晚上回来打卡。
+2. **每日背八股** — "背八股，从 Vue 章节开始" → 复述 → 逐条校正 → 下一题。
+3. **算法日常刷题** — "刷算法，今天 5 道新题" → 你先写代码 → 批改 bug、逻辑、风格 → 修正版 + 易错点 + 复杂度。
+4. **读真实项目源码** — "继续读 MiniVue，讲 reactivity.ts" → 函数地图 → 逐行讲解 → 复习题 → 你确认后才进下一块。
+5. **拖延启动** — "我不想学，帮我开始" → 一次一个极小动作（放下手机、坐起来、打开笔记……），直到进入学习状态。
 
-四种模式的完整示例对话见 [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
+五种模式的完整示例对话见 [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
 
 ## 目录结构
 
@@ -200,11 +208,13 @@ learning-coach-skill/
 │       │   │   ├── 八股规范.md
 │       │   │   ├── 算法规范.md
 │       │   │   ├── 项目规范.md
+│       │   │   ├── 计划规范.md
 │       │   │   └── 状态教练.md
 │       │   ├── templates/
 │       │   │   ├── 八股模板.md
 │       │   │   ├── 算法模板.md
-│       │   │   └── 项目模板.md
+│       │   │   ├── 项目模板.md
+│       │   │   └── 计划模板.md
 │       │   └── examples/
 │       │       └── 示例对话.md
 │       └── scripts/
@@ -222,8 +232,8 @@ learning-coach-skill/
 | 文件 / 目录 | 作用 |
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill 入口：声明何时使用、按用户请求加载对应 reference、所有场景通用的输出约定、进度记录与复习建议 |
-| `skill/learning-coach/references/rules/` | 四份规范：八股四段式、算法卡哥风格、项目逐行讲解、PlanCoach 启动学习，决定"怎么讲" |
-| `skill/learning-coach/references/templates/` | 三类输出模板：八股、算法、项目的完整输出格式，决定"长什么样" |
+| `skill/learning-coach/references/rules/` | 五份规范：八股四段式、算法卡哥风格、项目逐行讲解、面试倒计时定计划、PlanCoach 启动学习，决定"怎么讲/怎么排" |
+| `skill/learning-coach/references/templates/` | 四类输出模板：八股、算法、项目、学习计划的完整输出格式，决定"长什么样" |
 
 Skill 可独立迁移：复制 `skill/learning-coach/` 目录即可，不需要 `bin/`、`package.json`。CLI 安装时也只从这个目录生成目标 Skill。
 

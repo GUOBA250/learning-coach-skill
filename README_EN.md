@@ -1,7 +1,7 @@
 <div align="center">
   <h1>learning-coach-skill</h1>
   <p><a href="https://github.com/GUOBA250/learning-coach-skill/blob/main/README.md">简体中文</a></p>
-  <p><em>Your personal AI learning coach: memorize interview questions, grind algorithms, read source code, and beat procrastination.</em></p>
+  <p><em>Your personal AI learning coach: build a study plan, memorize interview questions, grind algorithms, read source code, and beat procrastination.</em></p>
   <p>
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
     <img alt="Type: Agent Skill" src="https://img.shields.io/badge/Type-Agent%20Skill-7c3aed">
@@ -12,10 +12,11 @@
   </p>
 </div>
 
-An AI study coach that helps you memorize interview questions, grind algorithms, and read project source code. Works for frontend, backend, and full-stack learning alike — and when you procrastinate, it switches to PlanCoach mode and pulls you into study state step by step.
+An AI study coach that helps you memorize interview questions, grind algorithms, and read project source code. Works for frontend, backend, and full-stack learning alike. Before an interview it builds a personalized daily study plan from your countdown, available daily hours, and self-rated level across the three areas; and when you procrastinate, it switches to PlanCoach mode and pulls you into study state step by step.
 
 ## Core Capabilities
 
+- Study plan: given the interview countdown, daily available hours, and your level in interview Q&A / algorithms / projects, it produces a three-phase overview, a today-task table sliced into time blocks, and milestones — then adjusts daily based on your check-ins
 - Interview questions: four-part explanations (plain-language walkthrough + text flowchart + 75-80 point core answer + follow-ups), with line-by-line correction after you restate it
 - Algorithms: Code Caprice style — "why this method" first, then "how", emphasizing frameworks, common pitfalls, and complexity
 - Source reading: function map up front, bottom-up line-by-line walkthrough, review questions and self-check list per block
@@ -32,6 +33,7 @@ npx learning-coach-skill install
 After installation, open a new chat in the project root and enter:
 
 ```text
+/learning-coach 帮我定计划，14 天后面试，每天能学 2 小时
 /learning-coach 背八股，下一题
 /learning-coach 刷算法，下一题
 /learning-coach 继续读 MiniVue，讲 parse.ts
@@ -151,10 +153,11 @@ Restart the target IDE / Agent so it picks up the new skill, then open a **new c
 
 ### Step 4 — Invoke the Skill
 
-Use the slash command `/learning-coach` followed by your intent, or just describe what you want in natural language. The skill matches your request to one of four modes:
+Use the slash command `/learning-coach` followed by your intent, or just describe what you want in natural language. The skill matches your request to one of five modes:
 
 | Mode | Trigger phrases | Loads | Example request |
 |------|-----------------|-------|-----------------|
+| 定计划 (Study plan) | "定计划" / "学习计划" / "面试倒计时" / "每天学什么" | `references/rules/计划规范.md` | `/learning-coach 帮我定计划，14 天后面试，每天能学 2 小时` |
 | 背八股 (Interview Q&A) | "背八股" / "复习八股" / "下一题" | `references/rules/八股规范.md` | `/learning-coach 背八股，下一题` |
 | 刷算法 (Algorithms) | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
 | 读项目 (Source reading) | "读项目" / "继续读" / "讲 XXX 文件" | `references/rules/项目规范.md` | `/learning-coach 继续读 MiniVue，讲 parse.ts` |
@@ -166,6 +169,9 @@ All parameters are optional — you can simply say what you want:
 
 | Parameter | Applies to | Effect |
 |-----------|------------|--------|
+| Interview date / countdown | 定计划 | Days until the interview (or an exact date); drives phase split and total-hour math |
+| Daily available hours | 定计划 | Weekdays and weekends can differ; decides how many blocks per day |
+| Level in the three areas | 定计划 | Rate interview Q&A, algorithms, projects as weak/mid/strong; decides time allocation |
 | Topic / chapter | 背八股, 刷算法 | Narrows questions to one area, e.g. "背 Vue 双向绑定" |
 | Progress notes | All modes | Tell it where you stopped; it remembers and reminds you next session |
 | Question number | 刷算法 | Targets a specific problem, e.g. "讲 76. 最小覆盖子串" |
@@ -174,6 +180,7 @@ All parameters are optional — you can simply say what you want:
 
 ### Output Formats
 
+- **定计划** — countdown dashboard → level diagnosis and time allocation (weak 3 / mid 2 / strong 1 shares) → three-phase overview (foundation/intensive/sprint at 5:3:2) → today's task table sliced into 30-45 minute blocks (each with a verifiable output standard) → rest-of-week themes → milestones → adjustment rules. Check in daily and the plan adapts to what you actually completed.
 - **背八股** — four sections: plain-language explanation → text flowchart → a ~350-word core answer you can recite → expected follow-up questions with spoken answers. Afterwards, you restate it in your own words and the coach corrects you line by line.
 - **刷算法** — Code Caprice style: what the problem tests → core idea → standard template code → line-by-line breakdown → example walkthrough → pitfall table → complexity → one-sentence takeaway. You write your own code first; the coach reviews it instead of giving away the answer.
 - **读项目** — a function map table first, then a bottom-up line-by-line walkthrough. Each block ends with ~8 review questions (question + answer) and a self-check checklist.
@@ -181,12 +188,13 @@ All parameters are optional — you can simply say what you want:
 
 ### Common Use Cases
 
-1. **Daily interview prep** — "背八股，从 Vue 章节开始" → recital → line-by-line correction → next question.
-2. **Algorithm practice** — "刷算法，今天 5 道新题" → you write code → review of bugs, logic, style → corrected version plus pitfalls and complexity.
-3. **Reading a real codebase** — "继续读 MiniVue，讲 reactivity.ts" → function map → line-by-line teaching → review questions → move on only after you confirm.
-4. **Beating procrastination** — "我不想学，帮我开始" → the coach hands you one tiny action at a time (put the phone away, sit up, open the notes…) until you are studying.
+1. **Planning before an interview** — "14 days until the interview, 2 hours on weekdays, weak at Q&A and algorithms, mid at projects" → countdown dashboard + three-phase overview + today's block table; work through the blocks and check in at night.
+2. **Daily interview prep** — "背八股，从 Vue 章节开始" → recital → line-by-line correction → next question.
+3. **Algorithm practice** — "刷算法，今天 5 道新题" → you write code → review of bugs, logic, style → corrected version plus pitfalls and complexity.
+4. **Reading a real codebase** — "继续读 MiniVue，讲 reactivity.ts" → function map → line-by-line teaching → review questions → move on only after you confirm.
+5. **Beating procrastination** — "我不想学，帮我开始" → the coach hands you one tiny action at a time (put the phone away, sit up, open the notes…) until you are studying.
 
-See [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md) for full sample conversations covering all four modes.
+See [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md) for full sample conversations covering all five modes.
 
 ## Repository Structure
 
@@ -200,11 +208,13 @@ learning-coach-skill/
 │       │   │   ├── 八股规范.md
 │       │   │   ├── 算法规范.md
 │       │   │   ├── 项目规范.md
+│       │   │   ├── 计划规范.md
 │       │   │   └── 状态教练.md
 │       │   ├── templates/
 │       │   │   ├── 八股模板.md
 │       │   │   ├── 算法模板.md
-│       │   │   └── 项目模板.md
+│       │   │   ├── 项目模板.md
+│       │   │   └── 计划模板.md
 │       │   └── examples/
 │       │       └── 示例对话.md
 │       └── scripts/
@@ -222,8 +232,8 @@ learning-coach-skill/
 | File / Directory | Purpose |
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill entry: declares when to activate, which reference to load per request, output conventions across all scenarios, progress tracking and review advice |
-| `skill/learning-coach/references/rules/` | Four rule sets: interview-question four-part structure, Code Caprice algorithm style, line-by-line source reading, and PlanCoach kickstart — decide "how to teach" |
-| `skill/learning-coach/references/templates/` | Three output templates for interview questions, algorithms, and source files — decide "what it looks like" |
+| `skill/learning-coach/references/rules/` | Five rule sets: interview-question four-part structure, Code Caprice algorithm style, line-by-line source reading, interview-countdown study planning, and PlanCoach kickstart — decide "how to teach / how to plan" |
+| `skill/learning-coach/references/templates/` | Four output templates for interview questions, algorithms, source files, and study plans — decide "what it looks like" |
 
 The Skill is portable on its own: copy `skill/learning-coach/` — `bin/` and `package.json` are not required. The CLI also builds installed targets from this directory only.
 
