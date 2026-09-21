@@ -46,11 +46,18 @@ for (const f of MD_FILES) {
 const errors = []
 let refCount = 0
 
+// 每个文件只读一次，正向断链检查和反向孤儿检查共用
+const textCache = new Map()
+function readText(file) {
+  if (!textCache.has(file)) textCache.set(file, fs.readFileSync(file, 'utf8'))
+  return textCache.get(file)
+}
+
 // 提取三类引用：`xxx.md` 裸文件名 / references/xx.md / ](相对路径.md)
 const refPattern = /(?:`(references\/[^`\s)]+\.md)`)|(?:`([^`\s/]+\.md)`)|(?:\]\(([^)\s#]+\.md)(?:#[^)]*)?\))/g
 
 for (const file of MD_FILES) {
-  const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/)
+  const lines = readText(file).split(/\r?\n/)
   lines.forEach((line, i) => {
     let m
     refPattern.lastIndex = 0
@@ -83,7 +90,7 @@ for (const file of MD_FILES) {
 // 反向检查：rules/ templates/ 下的每个文件是否至少被引用一次（仅警告）
 const referenced = new Set()
 for (const f of MD_FILES) {
-  const text = fs.readFileSync(f, 'utf8')
+  const text = readText(f)
   let m
   refPattern.lastIndex = 0
   while ((m = refPattern.exec(text)) !== null) {

@@ -12,7 +12,9 @@
   "files": [
     "bin/",
     "skill/",
-    "README_EN.md"
+    "README.md",
+    "README_EN.md",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",

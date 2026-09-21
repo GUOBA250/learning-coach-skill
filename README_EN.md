@@ -271,7 +271,7 @@ It is the least surprising user-level default and avoids guessing which product 
 
 ### Does `install` auto-detect products?
 
-No. The behavior is intentionally narrow: the default installs only to `.agents/skills`, product-specific installs require `--trae`, `--cursor`, `--claude-code`, or `--codex`. `doctor` only prints paths.
+No. The behavior is intentionally narrow: the default installs only to `.agents/skills`, product-specific installs require `--trae`, `--cursor`, `--claude-code`, or `--codex`. `doctor` only prints paths and the current install state; it writes nothing.
 
 ### Do updates apply automatically?
 
@@ -320,7 +320,7 @@ npx learning-coach-skill install --trae
 
 ### Installed files are stale after an update
 
-Installs are plain copies; nothing syncs automatically. Re-run the install command with the same flags to refresh.
+Installs are copies; nothing syncs automatically. Re-run the install command with the same flags to refresh. Directories managed by this tool (marked with `.installed-manifest.json`) are also pruned of files that existed in the old version but no longer exist in the new one; unmanaged directories are only merged into, never touched otherwise.
 
 ### What is the `scripts/` folder for
 
@@ -332,6 +332,25 @@ npm test
 ```
 
 Zero dependencies, pure Node, runs on Windows / macOS / Linux. A broken link fails with a non-zero exit code; rule/template files never referenced only produce a warning.
+
+## Maintenance Notes (for anyone editing this Skill)
+
+Rules are intentionally duplicated as quick-reference copies across files, so each mode works when only its own files are loaded. When changing a rule's wording, sync every copy below, or the same rule will have two answers. Single source of truth:
+
+| Rule | Source of truth | Quick-reference copies (must be kept in sync) |
+|---|---|---|
+| L1/L2/L3 priority levels | `rules/记忆优先级.md` | SKILL.md convention 8, 八股规范, 算法规范, 项目规范 |
+| Mistake-book mechanism (1/3/7/15-day intervals, daily caps 8/3/3, 2/1/0 grading, leech handling) | `rules/复习滚动机制.md` | SKILL.md review cadence, 八股/算法/项目/模拟面试规范, 计划规范 |
+| Patch protocol (📌/🔁, max 5 per turn, no full rewrite by default) | `rules/八股规范.md` | SKILL.md convention 7, 模拟面试规范, 八股模板 |
+| Plan adjustment rules (completion-rate tiers, half-load day, roll-over at most once) | `rules/计划规范.md` | 计划模板, sample scenarios 5/5B |
+| Plan status block format | `rules/计划规范.md` | 计划模板 |
+
+Other hard rules:
+
+- Run `npm test` after editing any Markdown: broken links are not tolerated; orphaned rules/templates produce a warning.
+- Always wrap file references in backticks (e.g. `记忆优先级.md`) or use relative links; bare filenames are not checked.
+- Adding a new mode requires six updates: a rule file, a template, sample dialogue entries, SKILL.md (triggers + dispatch table), both READMEs, plus an install smoke test (`doctor` + `install` into a temp directory).
+- CLI-managed install directories carry `.installed-manifest.json`; re-installing prunes stale files from older versions per the manifest. Unmanaged directories are only merged into — user files are never deleted.
 
 ## License
 
