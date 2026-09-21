@@ -187,6 +187,16 @@ All parameters are optional — you can simply say what you want:
 - **读项目** — a function map tagged 🔴/🟡/⚪ first, then a bottom-up line-by-line walkthrough. Each block ends with an "L1 list" and review questions covering L1/L2 only: code just needs to be understood, mechanisms must be spoken without notes.
 - **启动学习** — PlanCoach mode: one tiny action at a time, no lectures, until you are in study state.
 
+### How correction works for interview Q&A: patches, not re-memorization
+
+After you recite, the coach never hands you a 90%-identical "model answer" to diff against — two near-identical wordings fight in your head (retroactive interference) and create a "seen it = know it" fluency illusion. Instead:
+
+1. **Your recited version is canonical**; everything you got right stays untouched.
+2. You get a patch table (≤ 5 items): 📌 insertion for missing points / 🔁 replacement for factual errors, each with location, the exact sentence, and why. No full text by default — ask "给我全文" if you want it.
+3. Read the patches **once** → close the materials → immediately **re-tell out loud** using your version plus the patches (≤ 3 minutes). That single active-recall pass welds them into memory; no re-memorizing.
+
+All later reviews are oral recall with materials closed — never read-along sessions.
+
 ### Common Use Cases
 
 1. **Planning before an interview** — "14 days until the interview, 2 hours on weekdays, weak at Q&A and algorithms, mid at projects" → countdown dashboard + three-phase overview + today's block table; work through the blocks and check in at night.
@@ -234,8 +244,8 @@ learning-coach-skill/
 | File / Directory | Purpose |
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill entry: declares when to activate, which reference to load per request, output conventions across all scenarios, progress tracking and review advice |
-| `skill/learning-coach/references/rules/` | Six rule sets: interview-question four-part structure, Code Caprice algorithm style, line-by-line source reading, interview-countdown study planning, L1/L2/L3 memory priority (shared by Q&A and source reading), and PlanCoach kickstart — decide "how to teach / plan / what to memorize" |
-| `skill/learning-coach/references/templates/` | Four output templates for interview questions (with 🔴 must-recite list), algorithms, source files (with level-tagged map and L1 list), and study plans — decide "what it looks like" |
+| `skill/learning-coach/references/rules/` | Six rule sets: interview-question four-part structure with patch-based oral correction, Code Caprice algorithm style, line-by-line source reading, interview-countdown study planning, L1/L2/L3 memory priority (shared by Q&A and source reading), and PlanCoach kickstart — decide "how to teach / plan / what to memorize" |
+| `skill/learning-coach/references/templates/` | Four output templates for interview questions (with 🔴 must-recite list and patch table), algorithms, source files (with level-tagged map and L1 list), and study plans — decide "what it looks like" |
 
 The Skill is portable on its own: copy `skill/learning-coach/` — `bin/` and `package.json` are not required. The CLI also builds installed targets from this directory only.
 
