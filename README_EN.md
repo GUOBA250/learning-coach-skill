@@ -17,7 +17,7 @@ An AI study coach that helps you memorize interview questions, grind algorithms,
 ## Core Capabilities
 
 - Study plan: given the interview countdown, daily available hours, and your level in interview Q&A / algorithms / projects, it produces a three-phase overview, a today-task table sliced into time blocks, and milestones — then adjusts daily based on your check-ins
-- Interview questions: four-part explanations (plain-language walkthrough + text flowchart + 75-80 point core answer + follow-ups); each question opens with a 🔴 must-recite list, and correction is strict only on L1 items
+- Interview questions: four-part explanations (plain-language walkthrough + text flowchart + 75-80 point core answer + follow-ups); each question opens with a 🔴 must-recite list, and after you recite it the coach only hands you a short patch list — your own version stays canonical, no full rewrite
 - Algorithms: Code Caprice style — "why this method" first, then "how", emphasizing frameworks, common pitfalls, and complexity
 - Source reading: a level-tagged function map up front, bottom-up line-by-line walkthrough, and an 🔴 L1 list plus review questions per block
 - Priority-tagged memory: every piece of knowledge is tagged 🔴 L1 recite (speak without notes) / 🟡 L2 understand (explain with code visible) / ⚪ L3 recognize (just look familiar) — code itself is never memorized, mechanisms are; file paths, error-code numbers, and API spelling are not memorized
@@ -182,7 +182,7 @@ All parameters are optional — you can simply say what you want:
 ### Output Formats
 
 - **定计划** — countdown dashboard → level diagnosis and time allocation (weak 3 / mid 2 / strong 1 shares) → three-phase overview (foundation/intensive/sprint at 5:3:2) → today's task table sliced into 30-45 minute blocks (each with a verifiable output standard) → rest-of-week themes → milestones → adjustment rules. Check in daily and the plan adapts to what you actually completed.
-- **背八股** — opens with a 🔴 must-recite list (2-4 L1 items), then the four sections: plain-language explanation → text flowchart → a ~350-word core answer you can recite → expected follow-ups. You then recall it with materials closed, and the coach is strict only on L1.
+- **背八股** — opens with a 🔴 must-recite list (2-4 L1 items), then the four sections: plain-language explanation → text flowchart → a ~350-word core answer you can recite → expected follow-ups. After you recite, your version is treated as canonical: the coach gives at most 5 patches (📌 insertion / 🔁 replacement, with location and reason) and never a full rewrite; you read the patches once and immediately re-tell it with materials closed.
 - **刷算法** — Code Caprice style: what the problem tests → core idea → standard template code → line-by-line breakdown → example walkthrough → pitfall table → complexity → one-sentence takeaway. You write your own code first; the coach reviews it instead of giving away the answer.
 - **读项目** — a function map tagged 🔴/🟡/⚪ first, then a bottom-up line-by-line walkthrough. Each block ends with an "L1 list" and review questions covering L1/L2 only: code just needs to be understood, mechanisms must be spoken without notes.
 - **启动学习** — PlanCoach mode: one tiny action at a time, no lectures, until you are in study state.
@@ -190,7 +190,7 @@ All parameters are optional — you can simply say what you want:
 ### Common Use Cases
 
 1. **Planning before an interview** — "14 days until the interview, 2 hours on weekdays, weak at Q&A and algorithms, mid at projects" → countdown dashboard + three-phase overview + today's block table; work through the blocks and check in at night.
-2. **Daily interview prep** — "背八股，从 Vue 章节开始" → review the 🔴 must-recite list → recall from memory → line-by-line correction strict only on L1 → next question.
+2. **Daily interview prep** — "背八股，从 Vue 章节开始" → review the 🔴 must-recite list → recite → receive a patch list (no full rewrite) → re-tell once with the patches from memory → next question.
 3. **Algorithm practice** — "刷算法，今天 5 道新题" → you write code → review of bugs, logic, style → corrected version plus pitfalls and complexity.
 4. **Reading a real codebase** — "继续读 MiniVue，讲 reactivity.ts" → level-tagged function map → line-by-line teaching (code is L2, mechanisms are L1) → L1 list and review questions → move on only after you confirm.
 5. **Beating procrastination** — "我不想学，帮我开始" → the coach hands you one tiny action at a time (put the phone away, sit up, open the notes…) until you are studying.
