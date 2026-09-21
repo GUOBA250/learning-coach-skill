@@ -16,7 +16,7 @@ An AI study coach that helps you memorize interview questions, grind algorithms,
 
 ## Core Capabilities
 
-- Study plan: given the interview countdown, daily available hours, and your level in interview Q&A / algorithms / projects, it produces a three-phase overview, a today-task table sliced into time blocks, and milestones — then adjusts daily from your check-in completion rate (sub-50% days auto-halve, debt never rolls over, a cross-day status block is maintained); written-test and no-project/weak-project edge cases each have dedicated scheduling rules
+- Study plan: given the interview countdown, daily available hours, and your level in interview Q&A / algorithms / projects, it produces a three-phase overview, a today-task table sliced into time blocks, and milestones — then adjusts daily from your check-in completion rate (sub-50% days auto-halve, debt never rolls over, a cross-day status block is maintained); after each check-in it also collects actual time spent and, when the gap exceeds 25%, recalibrates upcoming schedules using per-topic coefficients (disable-able and manually overridable); written-test and no-project/weak-project edge cases each have dedicated scheduling rules
 - Interview questions: four-part explanations (plain-language walkthrough + text flowchart + 75-80 point core answer + follow-ups); each question opens with a 🔴 must-recite list, and after you recite it the coach only hands you a short patch list — your own version stays canonical, no full rewrite
 - Algorithms: Code Caprice style — "why this method" first, then "how", emphasizing frameworks, common pitfalls, and complexity; problem signals / approach framework / template skeleton / complexity are 🔴 must-recite (closed-book writing), while boundary details and variants are 🟡 — just understand and adapt
 - Source reading: a level-tagged function map up front, bottom-up line-by-line walkthrough, and an 🔴 L1 list plus review questions per block
@@ -259,7 +259,7 @@ learning-coach-skill/
 |------|------|
 | `skill/learning-coach/SKILL.md` | Skill entry: declares when to activate, which reference to load per request, output conventions across all scenarios, progress tracking and error-book review cadence |
 | `skill/learning-coach/references/rules/` | Eight rule sets: interview-question four-part structure with patch-based oral correction, Code Caprice algorithm style (with L1/L2/L3 levels), line-by-line source reading, interview-countdown study planning (incl. written-test and no-project edge cases), mock-interview flow with scoring and debrief, spaced-repetition error book (1/3/7/15-day), L1/L2/L3 memory priority (shared by Q&A, algorithms, source reading, and mocks), and PlanCoach kickstart — decide "how to teach / plan / examine / retain / what to memorize" |
-| `skill/learning-coach/references/templates/` | Six output templates for interview questions (with 🔴 must-recite list and patch table), algorithms (with must-recite list), source files (with level-tagged map and L1 list), study plans (with cross-day status block and half-load day table), mock interviews (opening / score table / debrief), and error-book review (intake / daily drill / report table) — decide "what it looks like" |
+| `skill/learning-coach/references/templates/` | Six output templates for interview questions (with 🔴 must-recite list and patch table), algorithms (with must-recite list), source files (with level-tagged map and L1 list), study plans (with cross-day status block, half-load day table, time-feedback block and accuracy report), mock interviews (opening / score table / debrief), and error-book review (intake / daily drill / report table) — decide "what it looks like" |
 
 The Skill is portable on its own: copy `skill/learning-coach/` — `bin/` and `package.json` are not required. The CLI also builds installed targets from this directory only.
 
@@ -343,6 +343,7 @@ Rules are intentionally duplicated as quick-reference copies across files, so ea
 | Mistake-book mechanism (1/3/7/15-day intervals, daily caps 8/3/3, 2/1/0 grading, leech handling) | `rules/复习滚动机制.md` | SKILL.md review cadence, 八股/算法/项目/模拟面试规范, 计划规范 |
 | Patch protocol (📌/🔁, max 5 per turn, no full rewrite by default) | `rules/八股规范.md` | SKILL.md convention 7, 模拟面试规范, 八股模板 |
 | Plan adjustment rules (completion-rate tiers, half-load day, roll-over at most once) | `rules/计划规范.md` | 计划模板, sample scenarios 5/5B |
+| Time-spent calibration (25% threshold, ±20% adjustment cap, 3-day warm-up, four topic coefficients, dual-signal fusion table, on/off switch) | `rules/计划规范.md` section 3 | 计划模板 (feedback block / verdict / record table / report), sample scenarios 5B/5C |
 | Plan status block format | `rules/计划规范.md` | 计划模板 |
 
 Other hard rules:
