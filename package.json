@@ -1,6 +1,6 @@
 {
   "name": "learning-coach-skill",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "学习教练 Agent Skill：面试倒计时定计划、背八股、刷算法、读项目源码、模拟面试、错题本滚动复习、启动学习",
   "license": "MIT",
   "bin": {

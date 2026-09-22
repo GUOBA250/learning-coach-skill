@@ -345,7 +345,9 @@ Rules are intentionally duplicated as quick-reference copies across files, so ea
 | Mistake-book mechanism (1/3/7/15-day intervals, daily caps 8/3/3, 2/1/0 grading, leech handling) | `rules/复习滚动机制.md` | SKILL.md review cadence, 八股/算法/项目/模拟面试规范, 计划规范 |
 | Patch protocol (📌/🔁, max 5 per turn, no full rewrite by default) | `rules/八股规范.md` | SKILL.md convention 7, 模拟面试规范, 八股模板 |
 | Three-phase reforge (trace triage gate, relearn 15 / warm test 20 / cold shot 10, at most once daily, enters book as 🟡) | `rules/八股规范.md` last section | SKILL.md review cadence, 复习滚动机制 section 3, 复习模板, sample scenario 9 |
-| Task-first track (learning-style diagnosis, six-step flow, four-layer obstacle triage, personal glossary) | `rules/任务先行规范.md` | SKILL.md load table, 项目规范 (track selection), sample scenario 10 |
+| Normal-day Q&A block 35+10 (35 min due items + new material, 10 min cold shot on day-before-yesterday/3-days-ago topics; reforge days replace the whole block with 15+20+10) | `rules/八股规范.md` normal-day structure section | SKILL.md review cadence |
+| Task-first track (learning-style diagnosis, six-step flow, four-layer obstacle triage, personal glossary) | `rules/任务先行规范.md` | SKILL.md load table, 项目规范 (track selection), 计划规范 step 1 (diagnosis during planning), sample scenario 10 |
+| Weekend interview-experience Q&A 15 min (rapid-fire real interview questions, L1 retrieval speed only, stuck points enter the error book) | `rules/计划规范.md` step 6 | 计划模板 "rest of week" note |
 | Project-leech channel toolbox (instrumented tracing / change-one-line prediction / diagram / demoted map, file+line action order, artifact-based retest) | `rules/复习滚动机制.md` section 4 | 任务先行规范 section 5, 复习模板 leech format, sample scenario 10 |
 | Plan adjustment rules (completion-rate tiers, half-load day, roll-over at most once) | `rules/计划规范.md` | 计划模板, sample scenarios 5/5B |
 | Time-spent calibration (25% threshold, ±20% adjustment cap, 3-day warm-up, four topic coefficients, dual-signal fusion table, on/off switch) | `rules/计划规范.md` section 3 | 计划模板 (feedback block / verdict / record table / report), sample scenarios 5B/5C |
