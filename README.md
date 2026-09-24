@@ -1,7 +1,7 @@
 <div align="center">
   <h1>learning-coach-skill</h1>
-  <p><a href="https://github.com/GUOBA250/learning-coach-skill/blob/main/README_EN.md">English</a></p>
-  <p><em>你的私人学习教练：定计划、背八股、刷算法、读项目源码、模拟面试、错题滚动复习、启动学习，一条龙陪练。</em></p>
+  <p><a href="README_EN.md">English</a></p>
+  <p><em>你的私人技术面试陪练：定计划、背八股、刷算法、读项目、模拟面试、错题复习、治拖延。</em></p>
   <p>
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
     <img alt="Type: Agent Skill" src="https://img.shields.io/badge/Type-Agent%20Skill-7c3aed">
@@ -12,29 +12,31 @@
   </p>
 </div>
 
-一个专门用来学八股、刷算法、读项目的 AI 助教 Skill。不限定方向，前端、后端、全栈都适用；也不只是"讲题"——面试前还能根据倒计时、每日可学时长和三围基础给你定制每日学习计划，在你拖延的时候用 PlanCoach 模式把你一步步拉进学习状态。
+一个装在 IDE / Agent 里的 AI 学习教练，七件事都在对话里完成。不限前端/后端/全栈，日常学习也能用。
 
-## 核心能力
+## 七种模式
 
-- 定计划：输入面试倒计时、每日可学时长、八股/算法/项目三围基础（同次顺带问学习风格 3 题，结论存 profile 不重问），输出三阶段总览 + 精确到块的今日任务表 + 里程碑；任务表先过四自检（每日合计对目标缺口/溢出 >30min 必补/必砍、吃力块排精力高位而八股靠后、算法先 30min 复习默写再排 4 道新题、项目块 ≤2 个可观测点）；每天打卡收四件事（完成块数/卡点/块负荷 🔵🟢🟠/疲劳度），当天某块 🟠 次日自动降难度拆小、连续 2 天 🔵 自动加量，末尾固定给"明日 ___ 块调整为 ___"；按完成率动态调整（<50% 自动减半、欠债不滚利、输出跨天状态块），超 50 分钟的块按 25+5 番茄钟切开、饱和时不评级；有笔试和没项目/项目水两种边界都有专门排法
-- 背八股：四段式讲解（通俗讲解 + 文字流程图 + 75-80 分核心答案 + 追问），开头先给「🔴 必背清单」；口述后只给补丁清单（位置＋补丁＋为什么），你的原版不动、不给全文重写；遇到"完全没印象、连续不会"的点先走回炉三段式（回炉重学→热测→隔天冷枪）再入库，不做无效重测
-- 刷算法：卡哥风格讲解，先讲"为什么用这个方法"再讲"怎么做"；🔴 必背只认三件——**题型信号、模板骨架（闭卷默写）、复杂度**，思路框架只用于理解不要求背；**复习优先**：每块先 30min 闭卷默写昨天/3 天/7 天前到期题（上限 3 道，没默完不加新题），再刷 **4 道新 medium**（hard 日 2 hard），新题按"想 3-5 分钟摸题型 → 看题解理解 → 合上默写"走，不盯题死想、12min/道；钉子/到期复习走纯默写协议（只默写不问框架，提示按"函数签名→关键行"分档，错行打补丁当天再默），超时顺延不占别的块
-- 读项目源码：统一走任务先行（词汇卡→任务书→先预测→动手验证→机制收口，词汇卡现场用完即走不建表），任务书每块只做 1-2 个浏览器可见的可观测点、机制点用现象倒推法单独练并对着物证讲因果链验收（不考脱稿口述），读码卡住按四层障碍分诊（语法/跨文件数据流/静态演动态/框架词汇）对症开通道；学习风格只在定计划时问诊一次，项目模式不重问
-- 分级记忆：八股按 🔴 L1 背（脱稿说）/ 🟡 L2 懂（看代码讲思路）/ ⚪ L3 认（眼熟即可）分级，项目 🔴 不考脱稿、对着物证讲清因果链即可——代码不用背、机制要懂；文件路径、错误码数字、API 拼写不要求记，有条理地背而不是全背
-- 模拟面试：15 分钟单科加练或 50 分钟全流程彩排（自我介绍→八股→算法→项目深挖→反问），面试中按真实节奏一次一题、不提示不讲课，结束后按环节 0-2 分评分、给 3 个核心问题和补丁清单，丢分点进错题本下次先抽
-- 错题滚动复习：补丁点/卡壳点/写错的题统一进错题本（精简 5 列：点/级别/当前档/下次复习/战绩），按 1→3→7→15 天间隔主动回忆，2 分升档、1 分留档、0 分打回明天；八股每天学新前先清到期（≤8 点），钉子题两次记不住就拆小/换通道/判放弃（项目钉子走埋点追时序等通道工具箱，对着自己产出的时序图/log 物证复测）；战报带库存水位，连续 2 天入>出次日止血停学新、🔴 超 12 个做判生死盘点；八股脱稿口述、算法闭卷默写、项目对物证讲因果链，共用一本
-- 启动学习：PlanCoach 模式，不讲大道理，给极小动作，完成一步再给下一步
-- 进度连贯：记住你的学习进度，下次对话接着提醒；环境支持持久化记忆（memory）时自动带出错题本表和计划状态块，不支持则回退为手动带表
-- 通用学习原则：所有动手环节（写代码/改一行/读新代码段/口述）先口头预测再验证对账，预测错比直接看答案更涨记性
-- 全平台安装：一条 CLI 支持通用 Agent、Trae、Cursor、Claude Code、Codex 的全局与项目级安装
+直接说人话就能触发，也可以加 `/learning-coach` 前缀：
 
-## 快速开始
+| 模式 | 这样说 | 它做什么 |
+|---|---|---|
+| 📅 定计划 | `14 天后面试，每天能学 2 小时` | 按倒计时和三围自评（八股/算法/项目）排三阶段总览 + 今天精确到半小时的任务表；求职导向会一次问齐笔试、题单、项目池等背景 |
+| 📚 背八股 | `背八股，下一题` | 先给 🔴 必背清单，再四段式讲解；你脱稿讲完只收补丁，不重背 |
+| 🧮 刷算法 | `刷算法，Hot100 下一题` | 卡哥风格讲题；每块先闭卷默写到期题，再刷 4 道新 medium，不盯题死想 |
+| 📂 读项目 | `继续读 MiniVue，讲 parse.ts` | 任务先行：先预测再动手验证，对着页面现象 / log 讲机制，代码看懂即可、不背 |
+| 🎤 模拟面试 | `模拟面试，前端岗全流程` | 一次一题、不提示，50 分钟走完自我介绍→八股→算法→项目→反问，结束打分给补丁 |
+| 🔁 复习错题 | `复习，今天到期的抽我` | 错题本按 1/3/7/15 天滚动：2 分升档、1 分留档、0 分打回明天 |
+| 🚀 启动学习 | `不想学，帮我开始` | PlanCoach 模式：不讲道理，一次只给一个极小动作 |
+
+## 30 秒上手
+
+前置：Node.js ≥ 16（仅安装时用到，Skill 本体是纯 Markdown）。
 
 ```bash
 npx learning-coach-skill install
 ```
 
-安装完成后，在项目根目录开启新对话，输入：
+重启 IDE / Agent，**开一个新对话**：
 
 ```text
 /learning-coach 帮我定计划，14 天后面试，每天能学 2 小时
@@ -44,300 +46,90 @@ npx learning-coach-skill install
 /learning-coach 我不想学，帮我开始
 ```
 
-## 安装方式
+想缩小范围直接补充就行：章节（"背 Vue 双向绑定"）、题号（"讲 76. 最小覆盖子串"）、文件路径、代码语言（"用 Go 写"）。
 
-默认安装到用户级通用 Agent 目录：
+## 安装到不同产品
 
-```text
-~/.agents/skills/learning-coach-skill/
-```
+默认装到通用 Agent 目录，按产品显式指定更稳：
 
-如果你明确使用某个编辑器或 Agent，建议显式指定产品：
-
-| 目标 | 用户级安装 | 安装位置 |
-|------|------------|----------|
+| 产品 | 用户级安装命令 | 安装位置 |
+|------|----------------|----------|
 | 通用 Agent / Codex | `npx learning-coach-skill install` | `~/.agents/skills/learning-coach-skill/` |
 | Trae | `npx learning-coach-skill install --trae` | `~/.trae/skills/learning-coach-skill/` |
 | Cursor | `npx learning-coach-skill install --cursor` | `~/.cursor/rules/learning-coach-skill/` |
 | Claude Code | `npx learning-coach-skill install --claude-code` | `~/.claude/skills/learning-coach-skill/` |
-| Codex | `npx learning-coach-skill install --codex` | `~/.agents/skills/learning-coach-skill/` |
 
-也可以一次安装到全部支持目标：
-
-```bash
-npx learning-coach-skill install --all
-```
-
-只查看会安装到哪里，不写入文件：
+其他命令：
 
 ```bash
-npx learning-coach-skill doctor
+npx learning-coach-skill install --all     # 一次装到全部全局目标
+npx learning-coach-skill doctor            # 只看会装到哪里、当前装没装，不写文件
 ```
 
-## 项目级安装
-
-如果你只想让某个业务项目使用这个 skill，进入业务项目根目录后执行：
+只让某个业务项目使用——进入项目根目录加 `--project`：
 
 ```bash
 cd /path/to/your-project
-npx learning-coach-skill install --project --trae
+npx learning-coach-skill install --project --trae   # 落到 ./.trae/rules/learning-coach-skill/
+npx learning-coach-skill install --project --all    # 全部项目级目标
 ```
 
-支持的项目级目标：
+> 更新不会自动生效：已安装的是拷贝，升级后用相同参数重新执行一次 install 即可。
 
-| 目标 | 项目级安装 | 安装位置 |
-|------|------------|----------|
-| Trae | `npx learning-coach-skill install --project --trae` | `.trae/rules/learning-coach-skill/` |
-| Cursor | `npx learning-coach-skill install --project --cursor` | `.cursor/rules/learning-coach-skill/` |
-| Claude Code | `npx learning-coach-skill install --project --claude-code` | `.claude/skills/learning-coach-skill/` |
-| Codex | `npx learning-coach-skill install --project --codex` | `.agents/skills/learning-coach-skill/` |
+## 和普通"AI 讲题"有什么不一样
 
-一键安装到全部项目级目标：
+- **打补丁，不重背**：你的口述版就是正式版，只给 ≤5 条补丁（📌 漏点 / 🔁 错句 + 原因），读一遍立刻脱稿再讲一次焊进去——绝不甩一篇 90% 相似的标准答案制造"看过=会了"。
+- **分级背，不全背**：🔴 脱稿背 / 🟡 看懂能讲 / ⚪ 眼熟即可；代码不背，文件路径、错误码数字、API 拼写不背。
+- **复习永远优先**：每天第一块先清到期错题（八股脱稿、算法闭卷默写、项目对物证讲因果链），清完才学新；同一点卡两次变"钉子"，拆小、换通道或放弃；连续两天入>出自动安排"止血日"。
+- **项目靠动手，不靠带读**：每块一个小任务，先口头预测再动手验证，对着物证讲清因果链即过，不考空手背。
+- **计划会自己调整**：晚上打卡回报完成块数/卡点/块负荷/疲劳度——完不成自动减半且不滚债，某块 🟠 次日自动降级拆小，连续 🔵 自动加量。
+- **进度能接续**：环境支持持久记忆时自动带出错题本和计划状态块；不支持则手动把表贴回来。
+- **治拖延有专门模式**：PlanCoach 一次只推一个小动作（放下手机、坐起来、打开笔记……），直到进入状态。
 
-```bash
-npx learning-coach-skill install --project --all
-```
+## 典型一天
 
-安装完成后，重启对应 IDE / Agent，开启新对话。
+1. 早上定计划，拿到今天的块表（每块 30-45 分钟，带可验收的产出标准）
+2. 第一块先清到期错题，然后照表学八股 / 算法 / 项目
+3. 学不动就说"不想学"，让 PlanCoach 拉一把
+4. 晚上打卡，自动拿到调整后的明日计划
+5. 冲刺期用"模拟面试"彩排两次（摸底 + 考前复测），丢分点自动进错题本
 
-## 使用指南
-
-五步走完整个流程，零 skill 使用经验也能上手。
-
-### 前提条件
-
-- Node.js >= 16（仅安装 CLI 需要；Skill 本体是纯 Markdown）
-- 支持 skill 的 IDE / Agent：Trae、Cursor、Claude Code、Codex，或任何从 `~/.agents/skills/` 加载技能的工具
-
-### 第 1 步：预览并安装
-
-先用 doctor 看看文件会落到哪里（不写任何文件）：
-
-```bash
-npx learning-coach-skill doctor
-npx learning-coach-skill doctor --trae
-```
-
-再选择目标安装（任选其一）：
-
-```bash
-# 通用 Agent / Codex（默认）
-npx learning-coach-skill install
-
-# 或明确指定产品
-npx learning-coach-skill install --trae          # Trae
-npx learning-coach-skill install --cursor        # Cursor
-npx learning-coach-skill install --claude-code   # Claude Code
-npx learning-coach-skill install --codex         # Codex
-
-# 一条命令装到全部全局目标
-npx learning-coach-skill install --all
-```
-
-只想让某个业务项目使用，进入该项目根目录加 `--project`：
-
-```bash
-cd /path/to/your-project
-npx learning-coach-skill install --project --trae
-```
-
-### 第 2 步：验证安装
-
-确认目标目录下存在 `SKILL.md`，例如：
-
-```bash
-ls ~/.trae/skills/learning-coach-skill/SKILL.md
-```
-
-路径不存在就重新执行 `install`——CLI 不会自动刷新已有拷贝。
-
-### 第 3 步：开启新会话
-
-重启对应的 IDE / Agent 让它加载新 skill，然后在项目根目录开一个**新对话**。skill 只会注入到安装之后新建的对话里。
-
-### 第 4 步：调用 skill
-
-用斜杠命令 `/learning-coach` 加意图，或者直接用自然语言描述需求。skill 会把请求匹配到七种模式之一：
-
-| 模式 | 触发词 | 加载文件 | 示例请求 |
-|------|--------|----------|----------|
-| 定计划 | "定计划" / "学习计划" / "面试倒计时" / "每天学什么" / "打卡" | `references/rules/计划规范.md` | `/learning-coach 帮我定计划，14 天后面试，每天能学 2 小时` |
-| 背八股 | "背八股" / "复习八股" / "下一题" / "哪些要背" / "回炉" / "全忘了" | `references/rules/八股规范.md` ＋ `记忆优先级.md` | `/learning-coach 背八股，下一题` |
-| 刷算法 | "刷算法" / "复习算法" / "下一题" | `references/rules/算法规范.md` | `/learning-coach 刷算法，Hot100 下一题` |
-| 读项目 | "读项目" / "继续读" / "讲 XXX 文件" / "代码要不要背" / "读不懂" / "带着我改" | `项目规范.md` ＋ `任务先行规范.md` ＋ `记忆优先级.md` | `/learning-coach 继续读 MiniVue，讲 reactivity.ts` |
-| 模拟面试 | "模拟面试" / "模拟一下" / "面我一轮" / "考前模拟" | `references/rules/模拟面试规范.md` ＋ `记忆优先级.md` | `/learning-coach 模拟面试，前端岗，用 MiniVue 全流程` |
-| 复习错题 | "复习" / "过错题" / "错题本" / "抽查我" / "背诵打卡" / "止血日" | `references/rules/复习滚动机制.md` | `/learning-coach 复习，今天到期的抽我一遍` |
-| 启动学习 | "启动不了" / "不想学" / "帮我开始" | `references/rules/状态教练.md` | `/learning-coach 我不想学，帮我开始` |
-
-### 可选输入参数
-
-所有参数都可选，直接说需求就行：
-
-| 参数 | 适用模式 | 作用 |
-|------|----------|------|
-| 面试日期 / 倒计时 | 定计划 | 距面试还有几天，或具体日期，用于切阶段、算总账 |
-| 每日可学时长 | 定计划 | 工作日/周末可分开给，决定每天排几个学习块 |
-| 三围基础 | 定计划 | 八股、算法、项目各自评弱/中/强，决定时间配比 |
-| 主题 / 章节 | 背八股、刷算法 | 缩小范围，如"背 Vue 双向绑定" |
-| 进度信息 | 全部模式 | 告诉它上次学到哪，下次对话会提醒 |
-| 题号 | 刷算法 | 指定题目，如"讲 76. 最小覆盖子串" |
-| 文件路径 | 读项目 | 指定文件或函数，如"讲 src/core/parse.ts" |
-| 语言偏好 | 刷算法 | 指定代码语言，如"用 Go 写" |
-
-### 输出格式
-
-- **定计划** — 倒计时看板 → 三围诊断与时间配比（弱 3 份/中 2 份/强 1 份）→ 三阶段总览（打底/强化/冲刺 5:3:2）→ 精确到 30-45 分钟块的今日任务表（每块带可验收的产出标准，超 50 分钟的块按 25+5 切开）→ 本周安排 → 里程碑 → 调整规则。每天回报"完成几块、卡在哪、块负荷、疲劳度"：≥90% 正常排、50-90% 不补债、<50% 次日减半（只保复习块 + 一个 🔴 块），疲劳饱和时的 0 分不评级、移次日早晨；打卡后直接给明天任务表和跨天状态块。有笔试：算法限时手写 + 每日选择题块 + 考前限时套卷；没项目/项目水：先把现有项目读懂包装，或 2-5 天突击一个能讲透的迷你项目，不编经历。
-- **背八股** — 开头先给「🔴 必背清单」（2-4 条 L1），再走四段式：通俗讲解 → 文字流程图 → 约 350 字可直接背诵的核心答案 → 面试官追问。你口述后，教练把你的版本当正式版，只给不超过 5 条补丁（📌 漏点补充 / 🔁 错句替换，标明位置和原因），不给全文重写；你读一遍补丁立刻脱稿再讲一次完成加固。
-- **刷算法** — 先给「🔴 必背清单」（题型信号/模板骨架/复杂度，框架不背），再走卡哥风格：考什么 → 核心思路 → 标准模板代码 → 逐行拆解 → 例子跑一遍 → 易错点表（🟡 边界细节，看懂能改即可）→ 复杂度 → 一句话总结。新题想 3-5 分钟没眉目就看题解，理解透了合上默写发我；复习段只闭卷默写、不问框架。
-- **读项目** — 统一走任务先行：词汇卡 → 任务书（文件+行号、做什么、怎么算赢）→ 先预测 → 动手验证 → 机制收口；每块只做 1-2 个可观测点，机制不考脱稿，对着物证讲清因果链即过，讲不清换个现象再倒推。代码看懂即可（🟡 L2），词汇卡现场用完即走不建表。
-- **启动学习** — PlanCoach 模式：一次只给一个极小动作，不讲大道理，直到你进入学习状态。
-- **模拟面试** — 开面三句话确认岗位/项目/全流程还是单科；面试中一次一题、卡住 10 秒才给一次最小提示（记"经提示"）、每题追问 1-2 轮只追漏的 🔴 L1 和"为什么"；结束后给评分表（每题 0/1/2 分）、最大的 3 个问题、补丁清单（复用八股补丁协议）、新入错题本的点和下一步动作。冲刺期安排 2 次：摸底 + 考前复测。
-- **复习错题** — 所有模式的丢分点共用一本错题本（5 列：点/级别/当前档/下次复习/战绩）：八股脱稿口述、项目对物证讲因果链、算法闭卷默写，按 1→3→7→15 天间隔滚动，当场报 2/1/0 分并调度（升档/留档/打回明天）。每天学新前先清到期点（八股 ≤8 个/15 分钟，算法 ≤3 道/30 分钟，项目 ≤3 个）；同一点 2 次 0 分变钉子题，拆小、换通道（画图/类比）或判定低频放弃；周末抽 20% 出库题回测。战报带库存水位（库存/🔴 数/今日入出），连续 2 天入>出触发次日止血日（停学新只消化），🔴 超 12 安排判生死盘点。
-
-### 背八股怎么校正：打补丁，不重背
-
-口述之后，教练**不会**甩一篇 90% 相似的"标准答案"让你逐句找差异——新旧两套措辞会在脑子里打架（倒摄干扰），还会产生"看过 = 会了"的错觉。流程是：
-
-1. **你的口述版就是正式版**，说对的部分一个字不动。
-2. 只给一张补丁表（一次 ≤ 5 条）：📌 漏点补充 / 🔁 事实错句替换，每条标明「拧在哪、补什么、为什么」；默认不给全文，需要时说"给我全文"。
-3. 你把补丁**只读一遍** → 合上材料，用自己的版本加补丁**立刻脱稿再讲一次**（≤ 3 分钟）。这一遍主动回忆就把补丁焊进已有记忆，不需要重背。
-
-之后的复习检测一律脱稿口述，不安排看着稿子读。
-
-### 常见用例
-
-1. **面试前定计划** — "14 天后面试，工作日每天 2 小时，八股弱算法弱项目中" → 倒计时看板 + 三阶段总览 + 今天的任务表，照着一块块做，晚上回来打卡。
-2. **每日背八股** — "背八股，从 Vue 章节开始" → 先看 🔴 必背清单 → 口述 → 收补丁清单（不给全文）→ 加补丁脱稿再讲一遍 → 下一题。
-3. **算法日常刷题** — "刷算法，今天 5 道新题" → 想 3-5 分钟摸题型，没眉目就看题解 → 理解透 → 合上默写发我 → 批改默写、易错点 + 复杂度。
-4. **读真实项目源码** — "继续读 MiniVue，讲 reactivity.ts" → 词汇卡 + 任务书（只做 1-2 个可观测点）→ 先预测再动手 → 对着现象/log 讲因果链收口 → 你过了才进下一块。
-5. **拖延启动** — "我不想学，帮我开始" → 一次一个极小动作（放下手机、坐起来、打开笔记……），直到进入学习状态。
-6. **考前模拟** — "模拟面试，前端岗，用 MiniVue 全流程" → 自我介绍+八股+算法+项目+反问走 50 分钟 → 评分表和 3 个核心问题 → 收补丁、丢分点进错题本，下次模拟先抽。
-7. **每日过错题** — "复习" → 今天到期的点逐个脱稿抽背（算法闭卷写）→ 2 分升档/1 分留档/0 分打回 → 战报 + 更新后的错题本表，清完再开新内容。
-
-七种模式的完整示例对话见 [skill/learning-coach/references/examples/示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
+完整的十场景示例对话见 [示例对话.md](skill/learning-coach/references/examples/示例对话.md)。
 
 ## 目录结构
 
 ```text
 learning-coach-skill/
-├── skill/
-│   └── learning-coach/
-│       ├── SKILL.md
-│       ├── references/
-│       │   ├── rules/
-│       │   │   ├── 八股规范.md
-│       │   │   ├── 算法规范.md
-│       │   │   ├── 项目规范.md
-│       │   │   ├── 任务先行规范.md
-│       │   │   ├── 计划规范.md
-│       │   │   ├── 模拟面试规范.md
-│       │   │   ├── 复习滚动机制.md
-│       │   │   ├── 记忆优先级.md
-│       │   │   └── 状态教练.md
-│       │   ├── templates/
-│       │   │   ├── 八股模板.md
-│       │   │   ├── 算法模板.md
-│       │   │   ├── 项目模板.md
-│       │   │   ├── 计划模板.md
-│       │   │   ├── 模拟面试模板.md
-│       │   │   └── 复习模板.md
-│       │   └── examples/
-│       │       └── 示例对话.md
-│       └── scripts/
-├── bin/
-│   └── learning-coach-skill.js
-├── scripts/
-│   └── check-refs.js        # npm test：校验 Markdown 交叉引用（纯 Node，不随包发布）
+├── skill/learning-coach/
+│   ├── SKILL.md                 # 入口：触发词、分发表、通用约定
+│   └── references/
+│       ├── rules/               # 9 份规范：怎么讲/怎么排/怎么考/怎么不忘
+│       ├── templates/           # 6 类输出模板：输出长什么样
+│       └── examples/示例对话.md
+├── bin/learning-coach-skill.js  # 安装 CLI
+├── scripts/check-refs.js        # npm test：校验 Markdown 交叉引用
 ├── package.json
-├── README.md
-├── README_EN.md
-├── LICENSE
-└── .gitignore
+├── README.md / README_EN.md
+└── LICENSE
 ```
 
-## 核心文件说明
-
-| 文件 / 目录 | 作用 |
-|------|------|
-| `skill/learning-coach/SKILL.md` | Skill 入口：声明何时使用、按用户请求加载对应 reference、所有场景通用的输出约定、进度记录与错题本复习节奏 |
-| `skill/learning-coach/references/rules/` | 九份规范：八股四段式、补丁式口述校正与回炉三段式、算法卡哥风格（含 L1/L2/L3 分级、4 新题配额、看答案理解默写三步与纯默写协议）、项目「任务先行」主规范与分级索引（问诊只问一次存 profile、读码障碍四层分诊、每块 1-2 可观测点、物证因果链验收）、面试倒计时定计划（排程四自检、打卡四件事与负荷次日联动、番茄钟/疲劳保护，含笔试/项目弱边界）、模拟面试流程与评分复盘、错题本 1/3/7/15 天滚动复习（含项目钉子通道工具箱、物证复测与库存水位止血）、L1/L2/L3 记忆优先级（八股、算法、项目、模拟面试共用）、PlanCoach 启动学习，决定"怎么讲/怎么排/怎么考/怎么不忘/背什么" |
-| `skill/learning-coach/references/templates/` | 六类输出模板：八股（含 🔴 必背清单与补丁式校正表）、算法（含必背清单）、项目（任务先行块：词汇卡/任务书/预测/物证收口）、学习计划（含跨天状态块、减半/止血日、负荷疲劳行）、模拟面试（开场/评分表/复盘）、错题本复习（5 列简表、入库/每日抽背/战报表、库存水位行与钉子通道执行单）的完整输出格式，决定"长什么样" |
-
-Skill 可独立迁移：复制 `skill/learning-coach/` 目录即可，不需要 `bin/`、`package.json`。CLI 安装时也只从这个目录生成目标 Skill。
+复制 `skill/learning-coach/` 即可单独迁移，不需要 CLI。
 
 ## 常见问题
 
-### 为什么默认安装到 `.agents/skills`？
+**装完没反应？** ① 重启 IDE / Agent；② 开**新**对话（老对话不注入）；③ `npx learning-coach-skill doctor --trae` 确认路径。
 
-这是最稳的用户级默认值，不依赖猜测用户正在使用哪个产品。如果你明确使用 Trae、Cursor、Claude Code 或 Codex，使用对应参数即可。
+**install 会自动探测产品吗？** 不会，刻意只认显式参数（`--trae` / `--cursor` / `--claude-code` / `--codex`），默认装通用目录。
 
-### `install` 会自动探测产品吗？
+**写入报 EACCES？** 先修属主再重装：`sudo chown -R "$(whoami)" ~/.trae ~/.agents ~/.cursor ~/.claude 2>/dev/null`
 
-不会。当前设计刻意收敛：默认只装到通用 `.agents/skills`，分产品安装必须显式指定 `--trae`、`--cursor`、`--claude-code` 或 `--codex`。`doctor` 只展示路径与当前安装状态，不写入文件。
+**command not found？** npm 拉不到包时可 `npm install -g learning-coach-skill`，或 clone 后 `node bin/learning-coach-skill.js install --trae`。
 
-### 更新后会自动生效吗？
-
-不会。已安装目录是拷贝产物，需要重新执行安装命令：
-
-```bash
-npx learning-coach-skill install --trae
-```
-
-### 只想装到某个业务项目怎么办？
-
-进入该业务项目根目录，执行 `--project` 加目标参数即可，例如 `npx learning-coach-skill install --project --trae`，Skill 会被安装到 `./.trae/rules/learning-coach-skill/`。
-
-## 故障排查
-
-### `npx learning-coach-skill` 提示 command not found
-
-包还没发布，或 npm 拉取不到。可选方案：
-
-```bash
-# 包发布到 npm 后，可全局安装
-npm install -g learning-coach-skill
-
-# clone 了仓库的话，直接跑 CLI
-node bin/learning-coach-skill.js install --trae
-
-# 本地开发时，用 npm link 调试
-cd learning-coach-skill && npm link && npx learning-coach-skill doctor
-```
-
-### 写入目标目录时报 EACCES 权限错误
-
-CLI 会写入用户主目录下的路径（如 `~/.trae/skills/...`）。先修正属主再重跑：
-
-```bash
-sudo chown -R "$(whoami)" ~/.trae ~/.agents ~/.cursor ~/.claude 2>/dev/null
-npx learning-coach-skill install --trae
-```
-
-### 安装后 skill 没反应
-
-1. 重启 IDE / Agent——新的 skill 只在启动时加载。
-2. 开一个**新**对话：已经开着的对话不会注入新 skill。
-3. 跑 `npx learning-coach-skill doctor --trae`，确认打印的路径与你的 IDE 期望一致。
-4. 用了 `--project` 安装的话，确认你在该项目根目录下的对话里使用。
-
-### 更新后已安装的文件还是旧的
-
-安装产物是拷贝，不会自动同步。用相同的参数重新执行 install 即可刷新；本工具托管的目录（带 `.installed-manifest.json`）重装时会自动清理旧版本有、新版本已删除的残留文件，非托管目录只合并覆盖、不删任何文件。
-
-### `scripts/` 目录是干什么的
-
-- `skill/learning-coach/scripts/` 是随 skill 一起安装的预留目录（当前为空），CLI 会原样复制。
-- 仓库根的 `scripts/check-refs.js` 是开发自检工具（不随包发布）：校验 SKILL.md、各规范、README 里所有 Markdown 引用指向真实文件。改完 skill 内容后跑：
-
-```bash
-npm test
-```
-
-零依赖、纯 Node 实现，Windows / macOS / Linux 都可运行；发现断链会以非零退出码失败，未被引用的规则/模板只给警告。
+**重装会动我其他文件吗？** 不会。带 `.installed-manifest.json` 的托管目录只清理本工具旧版本残留；非托管目录只合并覆盖。
 
 ## 维护约定（给修改这个 Skill 的人）
 
-规则有意在多份文件里保留速查副本——每个模式要能只加载自己的文件就工作。因此改口径时必须同步所有副本，否则会出现"同一条规则两个答案"。事实源对照：
+规则有意在多份文件里保留速查副本——每个模式要能只加载自己的文件就工作。改口径必须同步所有副本，否则"同一条规则两个答案"。事实源对照：
 
 | 口径 | 唯一事实源 | 速查副本（改动必须同步） |
 |---|---|---|
