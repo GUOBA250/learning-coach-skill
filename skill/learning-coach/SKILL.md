@@ -9,7 +9,13 @@ description: 当用户表达学习需求时使用此技能——背八股/复习
 
 ## 版本与变更
 
-**当前版本：v0.7.11**（发布版本号随包根 package.json；skill 目录内无 package.json，安装副本以同目录 `.installed-manifest.json` 记录的版本为准；机制权威定义在 `references/rules/` 对应规范，本文件只做索引）
+**当前版本：v0.7.12**（发布版本号随包根 package.json；skill 目录内无 package.json，安装副本以同目录 `.installed-manifest.json` 记录的版本为准；机制权威定义在 `references/rules/` 对应规范，本文件只做索引）
+
+### v0.7.12（2026-10-13，导学/面经内置补建：自包含兜底）
+
+此前 `项目规范.md`《导学/面经强制使用》要求每个项目块先读《导学-{项目}.md》/《面经-{项目}.md》（project-guide 产物），缺了"先补建再排点"。但别人只装 learning-coach-skill、没装 project-guide 且仓库也无导学/面经时，教练没有补建能力 → 会卡死或硬编质量不定的文件。本次内置自包含能力：
+① 新增 `导学面经内置补建规范.md`（完整复刻 project-guide 骨架：导学 8 节 = 前置知识表/亮点学习顺序/checklist/推荐阅读估时表/自学提醒/核心原理解析/关键设计决策/诚实声明；面经 4 大块 = 项目简介/简历 bullet/简历→面试展开/面试问题含 STAR 口播 + 源码证据索引）——仓库缺导学/面经且没跑过 project-guide 时，教练按内置模板现场生成到项目根目录，效果与 project-guide 产物差不多。
+② `项目规范.md` 强制读导学条更新："补建 = 按 `导学面经内置补建规范.md` 用内置模板现场生成"；凡已有 project-guide 产物或已装 project-guide，一律用现成的，不走内置补建。
 
 ### v0.7.11（2026-10-13，多轮规则冲突审计后最小修复）
 
