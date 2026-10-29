@@ -103,6 +103,7 @@ Fifteen full worked scenarios: [示例对话.md](skill/learning-coach/references
 learning-coach-skill/
 ├── skill/learning-coach/
 │   ├── SKILL.md                 # entry: triggers, routing table, conventions
+│   ├── profiles/                # user config layer: TEMPLATE.md + guoba.md (author's example)
 │   └── references/
 │       ├── rules/               # 9 rule sets: how to teach / plan / test / retain
 │       ├── templates/           # 6 output templates: what output looks like
@@ -115,6 +116,8 @@ learning-coach-skill/
 ```
 
 The `skill/learning-coach/` directory is portable on its own — the CLI is not required.
+
+**Personalization (Profile layer)**: the rule files ship generic defaults (timeboxing, review intervals, teaching formats). Your personal parameters — target role, daily study time, project pool, learning style, algorithm/bagu mode — live in one file: copy `profiles/TEMPLATE.md` and fill it in. At startup the coach reads your profile; explicit values in the profile override the rule defaults, everything else falls back to them. The bundled `profiles/guoba.md` is the author's own configuration and doubles as a filled-in example.
 
 ## FAQ
 

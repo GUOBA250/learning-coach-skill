@@ -103,6 +103,7 @@ npx learning-coach-skill install --project --all    # 全部项目级目标
 learning-coach-skill/
 ├── skill/learning-coach/
 │   ├── SKILL.md                 # 入口：触发词、分发表、通用约定
+│   ├── profiles/                # 用户配置层：TEMPLATE.md 空白模板 + guoba.md 作者示例
 │   └── references/
 │       ├── rules/               # 9 份规范：怎么讲/怎么排/怎么考/怎么不忘
 │       ├── templates/           # 6 类输出模板：输出长什么样
@@ -115,6 +116,8 @@ learning-coach-skill/
 ```
 
 复制 `skill/learning-coach/` 即可单独迁移，不需要 CLI。
+
+**个性化（Profile 机制）**：规则文件里是通用默认值（时间盒、复习间隔、教学格式）；你的个人参数——目标岗位、可学时长、项目池、学习风格、算法/八股模式选择——复制 `profiles/TEMPLATE.md` 填一份即可。教练启动时读 profile，profile 里明确写出的值覆盖规则默认，没写的走默认。仓库内置的 `profiles/guoba.md` 是作者本人的完整配置，兼作填写示范。
 
 ## 常见问题
 
