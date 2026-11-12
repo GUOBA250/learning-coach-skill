@@ -78,7 +78,7 @@ npx learning-coach-skill install --project --trae   # lands in ./.trae/rules/lea
 - **Projects are hands-on**: one small task per block, predict → verify → explain the causal chain against evidence.
 - **Plans self-adjust**: evening check-in reconciles plan vs actual per block — early finish requires make-up work, under-completion auto-halves without rolling debt; a struggling block gets auto-split smaller the next day.
 - **Lapses never snowball**: returning after missed days starts with a recovery card, old debts re-split with caps; lapse days don't count against completion; 7 straight days triggers a pure-review-day suggestion.
-- **Progress carries over**: with persistent memory the coach brings back your error notebook and plan state; otherwise paste the tables back manually.
+- **Progress carries over**: read local ledgers and snapshots directly. A private memory service is not required. Unknown dates and assessments stay explicitly unverified.
 - **Anti-procrastination mode**: PlanCoach pushes one tiny action at a time until you're in flow.
 
 ## A Typical Day
@@ -128,3 +128,7 @@ Rules keep lookup copies in several files (each mode can work by loading only it
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## v0.10.0: local continuity
+
+Current rules replace conflicting legacy instructions. Query, demonstration, rest, and assessment are distinct modes. Local ledgers are authoritative; the optional Python 3 checker validates IDs, dates, inventory keys, and memory-writing queues without changing scores. Codex installs to `~/.codex/skills/learning-coach/`; existing personal profiles are preserved. The public package no longer includes the author's private profile. Archive duplicate legacy installations manually after backing them up.

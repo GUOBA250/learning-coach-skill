@@ -48,7 +48,7 @@ const GLOBAL_TARGETS = {
   },
   codex: {
     label: 'Codex 全局',
-    dir: path.join(os.homedir(), '.agents', 'skills', PACKAGE_NAME),
+    dir: path.join(os.homedir(), '.codex', 'skills', SKILL_NAME),
   },
 };
 
@@ -85,7 +85,7 @@ learning-coach-skill — 学习教练 Agent Skill 安装器
   --trae        ~/.trae/skills/learning-coach-skill/
   --cursor      ~/.cursor/rules/learning-coach-skill/
   --claude-code ~/.claude/skills/learning-coach-skill/
-  --codex       ~/.agents/skills/learning-coach-skill/
+  --codex       ~/.codex/skills/learning-coach/
   --all         安装到所有支持的全局目标
 
 项目目标 (需 --project 与目标参数配合, 相对当前目录):
@@ -159,7 +159,9 @@ function resolveTargets(opts) {
       console.warn('提示: --all 已包含全部目标，额外指定的 '
         + `${opts.targetFlags.map((k) => `--${k}`).join(' / ')} 将被忽略。`);
     }
-    for (const key of Object.keys(pool)) push(key);
+    for (const key of Object.keys(pool)) {
+      if (key !== 'default') push(key);
+    }
     return picked;
   }
 
@@ -220,6 +222,10 @@ function copyRecursive(srcDir, destDir, baseDir = destDir, copied = []) {
       copyRecursive(srcPath, destPath, baseDir, copied);
     } else if (entry.isFile() || (stat && stat.isFile())) {
       // copyFileSync 跟随符号链接：安装产物是常规文件，不带用户本机路径
+      const relative = path.relative(SOURCE_DIR, srcPath).split(path.sep).join('/');
+      // Preserve existing personal profiles during upgrades; templates remain managed.
+      if (relative.startsWith('profiles/') && relative !== 'profiles/TEMPLATE.md'
+          && fs.existsSync(destPath)) continue;
       fs.copyFileSync(srcPath, destPath);
       copied.push(path.relative(baseDir, destPath).split(path.sep).join('/'));
     }
